@@ -1,33 +1,53 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="styled.css">
-</head>
-<body>
-  <header>
-    <h1>Dashboard</h1>
-  </header>
-  <main>
-    <div class="linha">
-      <a href="peritagens.html" class="modulo clicavel">
-        <h2>Peritagens</h2>
-      </a>
-      <a href="#" class="modulo clicavel">
-        <h2>Orçamentos</h2>
-      </a>
-      <a href="#" class="modulo clicavel">
-        <h2>Contas a Pagar</h2>
-      </a>
-      <a href="#" class="modulo clicavel">
-        <h2>Contas a Receber</h2>
-      </a>
-      <a href="conf.html" class="modulo clicavel">
-        <h2>Configurações</h2>
-      </a>
-    </div>
-  </main>
-</body>
-</html>
+/* Estilo moderno com paleta de cores azul */
+
+body {
+  font-family: Calibri, sans-serif;
+  background-color: #f7f7f7;
+}
+
+header {
+  background-color: #2196f3;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.linha {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.modulo {
+  width: 20%;
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  color: #333;
+  text-align: center; /* Adicionado estilo de texto centralizado */
+}
+
+.modulo:hover {
+  background-color: #eee; /* Estilo de hover */
+  cursor: pointer; /* Cursor de ponteiro */
+}
+
+.clicavel {
+  text-decoration: none; /* Remover sublinhado */
+  color: #333; /* Cor de texto escura */
+}
+
+.clicavel:hover {
+  text-decoration: none; /* Remover sublinhado */
+  color: #333; /* Cor de texto escura */
+}
