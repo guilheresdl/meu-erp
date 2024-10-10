@@ -9,18 +9,18 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>Login</h1>
-  </header>
-  <main>
-    <form>
-      <label for="username">Usuário:</label>
-      <input type="text" id="username" name="username"><br><br>
-      <label for="password">Senha:</label>
-      <input type="password" id="password" name="password"><br><br>
-      <input type="button" value="Logar" onclick="login()">
-    </form>
-  </main>
+  <div class="container">
+    <div class="login-module">
+      <h2>Login</h2>
+      <form>
+        <label for="username">Usuário:</label>
+        <input type="text" id="username" name="username"><br><br>
+        <label for="password">Senha:</label>
+        <input type="password" id="password" name="password"><br><br>
+        <input type="button" value="Logar" onclick="login()">
+      </form>
+    </div>
+  </div>
 
   <script>
     function login() {
