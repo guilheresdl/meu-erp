@@ -10,8 +10,8 @@
   <style>
     .back-button {
       position: absolute;
-      top: 0;
-      left: 0;
+      top: 10;
+      left: 10;
     }
   </style>
 </head>
@@ -32,6 +32,24 @@
 <select id="ss" name="ss">
   <option value="">Selecione</option>
 </select><br><br>
+
+<button id="submit-btn">Enviar</button>
+
+<script>
+  const form = document.forms[0];
+  const selectElement = document.getElementById("ss");
+  const submitButton = document.getElementById("submit-btn");
+
+  submitButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    // Clear all options
+    selectElement.options.length = 0;
+    // Add a default option
+    selectElement.options.add(new Option("Selecione", ""));
+    // Submit the form
+    form.submit();
+  });
+</script>
 
 <script>
   for (let i = 1; i <= 50; i++) {
