@@ -11,8 +11,19 @@
 <body>
   <div class="top-bar">
     <button class="back-button" onclick="goBack()">&larr; Voltar</button>
+    <h1>Peritagens</h1>
   </div>
-  <!-- rest of the page content here -->
+  <div class="container">
+    <form id="peritagens-form">
+      <!-- Form fields here -->
+      <label for="field1">Campo 1:</label>
+      <input type="text" id="field1" name="field1"><br><br>
+      <label for="field2">Campo 2:</label>
+      <input type="text" id="field2" name="field2"><br><br>
+      <!-- Add more form fields as needed -->
+    </form>
+  </div>
+
   <script>
     function goBack() {
       window.location.href = 'dashboard.html';
