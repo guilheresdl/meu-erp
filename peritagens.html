@@ -28,12 +28,19 @@
       <label for="cliente">Nome do Cliente:</label>
       <input type="text" id="cliente" name="cliente"><br><br>
       
-      <label for="ss">Número da SS:</label>
-      <select id="ss" name="ss">
-        <?php for ($i = 1; $i <= 50; $i++) { ?>
-          <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-        <?php } ?>
-      </select><br><br>
+ <label for="ss">Número da SS:</label>
+<select id="ss" name="ss">
+  <option value="">Selecione</option>
+</select><br><br>
+
+<script>
+  for (let i = 1; i <= 50; i++) {
+    let option = document.createElement("option");
+    option.value = i;
+    option.text = i;
+    document.getElementById("ss").appendChild(option);
+  }
+</script>
       
       <label for="responsavel">Nome do Responsável:</label>
       <input type="text" id="responsavel" name="responsavel"><br><br>
