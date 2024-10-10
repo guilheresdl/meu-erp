@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Formulário de Peritagem</title>
-  <link rel="stylesheet" href="peritagem.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
@@ -20,8 +20,17 @@
         <div class="col-md-6">
           <section>
             <label for="ss-numero">SS (Número de Identificação):</label>
-            <input type="text" id="ss-numero" name="ss-numero" class="form-input">
-            <button id="add-ss-button" class="btn btn-primary">Adicionar mais IDs</button>
+            <select id="ss-numero" name="ss-numero" class="form-input">
+              <option value="">Selecione</option>
+              <script>
+                for (let i = 1; i <= 50; i++) {
+                  document.write(`<option value="${i}">${i}</option>`);
+                }
+              </script>
+            </select>
+            <div class="button-container">
+              <button id="add-ss-button" class="btn btn-primary">Adicionar mais IDs</button>
+            </div>
             <div id="ss-list"></div>
           </section>
         </div>
@@ -77,6 +86,9 @@
             <textarea id="sugestao-de-reparos" name="sugestao-de-reparos" class="form-input"></textarea>
           </section>
         </div>
+      </div>
+      <div class="button-container">
+        <button id="enviar-formulario" class="btn btn-primary">Enviar Formulário</button>
       </div>
     </form>
   </div>
