@@ -1,41 +1,59 @@
-/* Estilo moderno com paleta de cores azul */
+/* styles.css */
 
 body {
   font-family: Arial, sans-serif;
   background-color: #f7f7f7;
 }
 
-header {
-  background-color: #2196f3;
-  color: #fff;
-  padding: 20px;
-  text-align: center;
-}
-
-main {
+.container {
+  width: 100%;
+  height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-}
-
-.linha {
-  display: flex;
-  flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
 }
 
-.modulo {
-  width: 20%;
-  margin: 20px;
+.login-module {
+  width: 300px;
   padding: 20px;
+  background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: #fff; /* Adicionado estilo de fundo branco */
-  color: #333; /* Adicionado cor de texto escura */
+  text-align: center;
 }
 
-.modulo h2 {
+.login-module h2 {
   margin-top: 0;
+  color: #333;
+}
+
+.login-module form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-module label {
+  margin-bottom: 10px;
+}
+
+.login-module input {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-module input[type="button"] {
+  background-color: #2196f3;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-module input[type="button"]:hover {
+  background-color: #1976d2;
 }
