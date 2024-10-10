@@ -1,73 +1,108 @@
-<!-- peritagens.html -->
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Peritagens</title>
-  <link rel="stylesheet" href="styles.css">
-  <style>
-    .back-button {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Peritagem</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-  <button class="back-button" onclick="goBack()">&larr; Voltar</button>
-  <div class="top-bar">
-    <h1>Peritagens</h1>
-  </div>
-  <div class="container">
-    <form id="peritagens-form">
-      <label for="equipamento">Nome do Equipamento:</label>
-      <input type="text" id="equipamento" name="equipamento"><br><br>
-      
-      <label for="cliente">Nome do Cliente:</label>
-      <input type="text" id="cliente" name="cliente"><br><br>
-      
-      <label for="ss">Número da SS:</label>
-      <select id="ss" name="ss">
-        <option value="">Selecione</option>
-      </select><br><br>
+    <div class="container">
+        <h1>Formulário de Peritagem</h1>
+        <form id="formulario">
+            <div class="form-group">
+                <label for="nomeCliente">Nome do Cliente:</label>
+                <input type="text" id="nomeCliente" name="nomeCliente" required>
+            </div>
 
-      <script>
-        for (let i = 1; i <= 50; i++) {
-          let option = document.createElement("option");
-          option.value = i;
-          option.text = i;
-          document.getElementById("ss").appendChild(option);
-        }
-      </script>
+            <div class="form-group">
+                <label for="nomeEquipamento">Nome do Equipamento:</label>
+                <input type="text" id="nomeEquipamento" name="nomeEquipamento" required>
+            </div>
 
-      <label for="responsavel">Nome do Responsável:</label>
-      <input type="text" id="responsavel" name="responsavel"><br><br>
-    </form>
-    <button id="submit-btn">Enviar</button>
+            <div class="form-group">
+                <label for="ss">SS:</label>
+                <div class="ss-id-group">
+                    <input type="text" id="ss" name="ss" class="ss-input" required>
+                    <select id="id" name="id" class="id-select">
+                        <option value="">Selecione</option>
+                        <!-- Gerar opções de 1 a 50 -->
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                var select = document.getElementById('id');
+                                for (var i = 1; i <= 50; i++) {
+                                    var option = document.createElement('option');
+                                    option.value = i;
+                                    option.textContent = i;
+                                    select.appendChild(option);
+                                }
+                            });
+                        </script>
+                    </select>
+                </div>
+            </div>
 
-    <script>
-      const form = document.forms[0];
-      const selectElement = document.getElementById("ss");
-      const submitButton = document.getElementById("submit-btn");
+            <div class="form-group">
+                <label for="responsavel">Nome do Responsável:</label>
+                <input type="text" id="responsavel" name="responsavel" required>
+            </div>
 
-      submitButton.addEventListener("click", (e) => {
-        e.preventDefault();
-        // Clear all options
-        selectElement.options.length = 0;
-        // Add a default option
-        selectElement.options.add(new Option("Selecione", ""));
-        // Submit the form
-        form.submit();
-      });
-    </script>
-  </div>
+            <div class="form-group">
+                <label for="dataPeritagem">Data da Peritagem:</label>
+                <input type="date" id="dataPeritagem" name="dataPeritagem" required>
+            </div>
 
-  <script>
-    function goBack() {
-      window.location.href = 'dashboard.html';
-    }
-  </script>
+            <div class="form-group">
+                <label for="peça">Selecione a Peça:</label>
+                <select id="peça" name="peça">
+                    <option value="">Selecione</option>
+                    <option value="haste">Haste</option>
+                    <option value="camisa">Camisa</option>
+                    <option value="olhal">Olhal</option>
+                    <option value="flange">Flange</option>
+                    <option value="fundo">Fundo</option>
+                    <option value="embolo">Êmbolo</option>
+                    <option value="espacoador">Espaçador</option>
+                    <option value="jogoVedacao">Jogo de Vedação</option>
+                </select>
+            </div>
+
+            <div id="opcoesPeça" class="hidden form-group">
+                <p id="infoPeca"></p>
+
+                <div id="opcoesCheckbox">
+                    <!-- As opções serão inseridas aqui pelo JavaScript -->
+                </div>
+
+                <label for="diametro">Diâmetro (mm):</label>
+                <input type="text" id="diametro" name="diametro">
+
+                <label for="comprimento">Comprimento (mm):</label>
+                <input type="text" id="comprimento" name="comprimento">
+
+                <label for="largura">Largura (mm):</label>
+                <input type="text" id="largura" name="largura">
+            </div>
+
+            <button type="button" onclick="adicionarPeca()">Salvar Peça</button>
+        </form>
+
+        <h2>Resumo das Peças</h2>
+        <table id="tabelaResumo">
+            <thead>
+                <tr>
+                    <th>Peça</th>
+                    <th>Diâmetro (mm)</th>
+                    <th>Comprimento (mm)</th>
+                    <th>Largura (mm)</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- As peças adicionadas aparecerão aqui -->
+            </tbody>
+        </table>
+    </div>
+    <script src="index.js"></script>
 </body>
 </html>
