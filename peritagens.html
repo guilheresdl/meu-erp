@@ -22,12 +22,21 @@
   </div>
   <div class="container">
     <form id="peritagens-form">
-      <!-- Form fields here -->
-      <label for="field1">Campo 1:</label>
-      <input type="text" id="field1" name="field1"><br><br>
-      <label for="field2">Campo 2:</label>
-      <input type="text" id="field2" name="field2"><br><br>
-      <!-- Add more form fields as needed -->
+      <label for="equipamento">Nome do Equipamento:</label>
+      <input type="text" id="equipamento" name="equipamento"><br><br>
+      
+      <label for="cliente">Nome do Cliente:</label>
+      <input type="text" id="cliente" name="cliente"><br><br>
+      
+      <label for="ss">Número da SS:</label>
+      <select id="ss" name="ss">
+        <?php for ($i = 1; $i <= 50; $i++) { ?>
+          <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+        <?php } ?>
+      </select><br><br>
+      
+      <label for="responsavel">Nome do Responsável:</label>
+      <input type="text" id="responsavel" name="responsavel"><br><br>
     </form>
   </div>
 
