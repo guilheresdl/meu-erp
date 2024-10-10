@@ -1,67 +1,39 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
-}
+const pecaSection = document.getElementById('peca-section');
+const pecaList = document.getElementById('peca-list');
 
-.container {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-}
+const pecas = [
+  { name: 'Haste', options: ['Fabricar', 'Cromar', 'Recuperar Ros ca'] },
+  { name: 'Pistão', options: ['Fabricar', 'Cromar', 'Recuperar Rosca'] },
+  { name: 'Cilindro', options: ['Fabricar', 'Cromar', 'Recuperar Rosca'] },
+  { name: 'Bomba', options: ['Fabricar', 'Cromar', 'Recuperar Rosca'] },
+  { name: 'Turbo', options: ['Fabricar', 'Cromar', 'Recuperar Rosca'] },
+];
 
-.title {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
-}
+pecas.forEach((peca, index) => {
+  const pecaItem = document.createElement('div');
+  pecaItem.innerHTML = `
+    <h4>${peca.name}</h4>
+    <select id="peca-${index}" name="peca-${index}" class="form-input">
+      <option value="">Selecione</option>
+      ${peca.options.map((option) => `<option value="${option}">${option}</option>`).join('')}
+    </select>
+  `;
+  pecaList.appendChild(pecaItem);
+});
 
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-}
+const addSSButton = document.getElementById('add-ss-button');
+const ssList = document.getElementById('ss-list');
 
-.col-md-6 {
-  width: 50%;
-  padding: 10px;
-}
+let ssCount = 1;
 
-.form-input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.form-input:focus {
-  border-color: #aaa;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.btn {
-  background-color: #337ab7;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.btn:hover {
-  background-color: #23527c;
-}
-
-.btn-primary {
-  background-color: #337ab7;
-}
-
-.btn-primary:hover {
-  background-color: #23527c;
-}
+addSSButton.addEventListener('click', () => {
+  const ssItem = document.createElement('div');
+  ssItem.innerHTML = `
+    <select id="ss-${ssCount}" name="ss-${ssCount}" class="form-input">
+      <option value="">Selecione</option>
+      ${Array.from({ length: 50 }, (_, i) => `<option value="${i + 1}">${i + 1}</option>`).join('')}
+    </select>
+  `;
+  ssList.appendChild(ssItem);
+  ssCount++;
+});
