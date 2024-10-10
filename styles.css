@@ -19,39 +19,15 @@ main {
   padding: 20px;
 }
 
-form {
-  width: 50%;
-  margin: 40px auto;
+.bloco {
+  width: 80%;
+  margin: 20px auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-label {
-  display: block;
-  margin-bottom: 10px;
-}
-
-input[type="text"], input[type="password"] {
-  width: 100%;
-  height: 40px;
-  margin-bottom: 20px;
-  padding: 10px;
-  border: 1px solid #ccc;
-}
-
-input[type="button"] {
-  width: 100%;
-  height: 40px;
-  background-color: #2196f3;
-  color: #fff;
-  padding: 10px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-input[type="button"]:hover {
-  background-color: #1a73e8;
+.bloco h2 {
+  margin-top: 0;
 }
