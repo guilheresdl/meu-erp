@@ -1,1 +1,100 @@
 
+body {
+  font-family: Calibri, sans-serif;
+  background-color: #f7f7f7;
+}
+
+header {
+  background-color: #2196f3;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.linha {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.modulo {
+  width: 40%; /* Adjusted width to 40% */
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  color: #333;
+  text-align: center;
+}
+
+.modulo:hover {
+  background-color: #eee;
+  cursor: pointer;
+}
+
+.clicavel {
+  text-decoration: none;
+  color: #333;
+}
+
+.clicavel:hover {
+  text-decoration: none;
+  color: #333;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.input-group input[type="text"],
+.input-group input[type="email"],
+.input-group input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+}
+
+.input-group .error {
+  color: #red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+#user-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#user-table thead th {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+#user-table tbody tr {
+  border-bottom: 1px solid #ccc;
+}
+
+#user-table td {
+  padding: 10px;
+  text-align: left;
+}
+
+#user-table td:last-child {
+  text-align: center;
+}
