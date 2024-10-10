@@ -1,19 +1,75 @@
 <!-- index.html (página de login) -->
 
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    form {
+      width: 50%;
+      margin: 40px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      height: 40px;
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    input[type="button"] {
+      width: 100%;
+      height: 40px;
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    input[type="button"]:hover {
+      background-color: #3e8e41;
+    }
+  </style>
 </head>
 <body>
-  <h1>Login</h1>
-  <form>
-    <label for="username">Usuário:</label>
-    <input type="text" id="username" name="username"><br><br>
-    <label for="password">Senha:</label>
-    <input type="password" id="password" name="password"><br><br>
-    <input type="button" value="Logar" onclick="login()">
-  </form>
+  <header>
+    <h1>Login</h1>
+  </header>
+  <main>
+    <form>
+      <label for="username">Usuário:</label>
+      <input type="text" id="username" name="username"><br><br>
+      <label for="password">Senha:</label>
+      <input type="password" id="password" name="password"><br><br>
+      <input type="button" value="Logar" onclick="login()">
+    </form>
+  </main>
 
   <script>
     function login() {
