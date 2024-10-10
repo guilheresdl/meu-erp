@@ -6,56 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
-    }
-    header {
-      background-color: #333;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-    }
-    main {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
-    }
-    form {
-      width: 50%;
-      margin: 40px auto;
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    label {
-      display: block;
-      margin-bottom: 10px;
-    }
-    input[type="text"], input[type="password"] {
-      width: 100%;
-      height: 40px;
-      margin-bottom: 20px;
-      padding: 10px;
-      border: 1px solid #ccc;
-    }
-    input[type="button"] {
-      width: 100%;
-      height: 40px;
-      background-color: #4CAF50;
-      color: #fff;
-      padding: 10px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-    input[type="button"]:hover {
-      background-color: #3e8e41;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header>
@@ -73,9 +24,10 @@
 
   <script>
     function login() {
-      // Verificar se o login foi realizado com sucesso
-      // (neste exemplo, vamos supor que o login foi realizado com sucesso)
-      if (true) {
+      // Condição para que o login sempre seja verdadeiro (para testes)
+      var isValid = true;
+
+      if (isValid) {
         window.location.href = 'dashboard.html';
       } else {
         alert("Erro ao logar!");
