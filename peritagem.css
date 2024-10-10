@@ -1,39 +1,45 @@
-const pecaSection = document.getElementById('peca-section');
-const pecaList = document.getElementById('peca-list');
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
 
-const pecas = [
-  { name: 'Haste', options: ['Fabricar', 'Cromar', 'Recuperar Ros ca'] },
-  { name: 'Pistão', options: ['Fabricar', 'Cromar', 'Recuperar Rosca'] },
-  { name: 'Cilindro', options: ['Fabricar', 'Cromar', 'Recuperar Rosca'] },
-  { name: 'Bomba', options: ['Fabricar', 'Cromar', 'Recuperar Rosca'] },
-  { name: 'Turbo', options: ['Fabricar', 'Cromar', 'Recuperar Rosca'] },
-];
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
 
-pecas.forEach((peca, index) => {
-  const pecaItem = document.createElement('div');
-  pecaItem.innerHTML = `
-    <h4>${peca.name}</h4>
-    <select id="peca-${index}" name="peca-${index}" class="form-input">
-      <option value="">Selecione</option>
-      ${peca.options.map((option) => `<option value="${option}">${option}</option>`).join('')}
-    </select>
-  `;
-  pecaList.appendChild(pecaItem);
-});
+header {
+    background-image: linear-gradient(to bottom, #4567b7, #6495ed);
+    background-size: 100% 300px;
+    background-position: 0% 100%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+}
 
-const addSSButton = document.getElementById('add-ss-button');
-const ssList = document.getElementById('ss-list');
+h1 {
+    font-size: 36px;
+    font-weight: bold;
+    margin: 0;
+}
 
-let ssCount = 1;
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+}
 
-addSSButton.addEventListener('click', () => {
-  const ssItem = document.createElement('div');
-  ssItem.innerHTML = `
-    <select id="ss-${ssCount}" name="ss-${ssCount}" class="form-input">
-      <option value="">Selecione</option>
-      ${Array.from({ length: 50 }, (_, i) => `<option value="${i + 1}">${i + 1}</option>`).join('')}
-    </select>
-  `;
-  ssList.appendChild(ssItem);
-  ssCount++;
-});
+footer {
+    background-color: #333333;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+}
