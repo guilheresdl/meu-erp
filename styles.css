@@ -5,6 +5,13 @@ body {
   background-color: #f7f7f7;
 }
 
+header {
+  background-color: #2196f3;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
 .container {
   width: 100%;
   height: 100vh;
