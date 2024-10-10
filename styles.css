@@ -7,7 +7,7 @@ body {
   padding: 0;
 }
 
-.header {
+.top-bar {
   background-color: #2196f3;
   color: #fff;
   padding: 20px;
@@ -15,9 +15,13 @@ body {
   width: 100%;
 }
 
+.top-bar h1 {
+  margin: 0;
+}
+
 .container {
   width: 100%;
-  height: calc(100vh - 80px); /* ajustado para compensar o cabeçalho */
+  height: calc(100vh - 80px); /* ajustado para compensar o top-bar */
   display: flex;
   flex-direction: column;
   justify-content: center;
