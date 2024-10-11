@@ -194,7 +194,7 @@ function getAcao(peca) {
 
     checkboxes.forEach(checkbox => {
         if (checkbox.checked) {
-            acoes.push(checkbox.id.replace(peca.toLowerCase() + 'Haste', '').replace(peca.toLowerCase() + 'Camisa', '').replace(peca.toLowerCase() + 'Olhal', '').replace(peca.toLowerCase() + 'Flange', '').replace(peca.toLowerCase() + 'Fundo', '').replace(peca.toLowerCase() + 'Embolo', '').replace(peca.toLowerCase() + 'Espacador', '').replace(peca.toLowerCase() + 'JogoVedacao', ''));
+            acoes.push(checkbox.id.replace(peca.toLowerCase(), ''));
         }
     });
 
