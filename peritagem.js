@@ -182,6 +182,7 @@ function adicionarPeca() {
         <td>${diametro}</td>
         <td>${comprimento}</td>
         <td>${largura}</td>
+        <td><span class="delete-button" onclick="excluirLinha(this)">X</span></td>
     `;
 
     // Limpar campos após adicionar
@@ -201,4 +202,10 @@ function getAcao(peca) {
     });
 
     return acoes.join(', ');
+}
+
+// Função para excluir uma linha da tabela
+function excluirLinha(element) {
+    const linha = element.parentNode.parentNode;
+    linha.parentNode.removeChild(linha);
 }
