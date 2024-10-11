@@ -1,107 +1,94 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Usuário</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            width: 50%;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        input[type="text"], input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        button {
-            display: inline-block;
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Usuário</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .message {
+      margin-top: 15px;
+      text-align: center;
+      color: green;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Cadastro de Usuário</h1>
-        <form id="userForm">
-            <div class="form-group">
-                <label for="username">Nome de Usuário:</label>
-                <input type="text" id="username" name="username" required>
-            </div>
+  <div class="container">
+    <h2>Cadastrar Usuário</h2>
+    <form id="userForm">
+      <label for="username">Nome de Usuário:</label>
+      <input type="text" id="username" name="username" required>
 
-            <div class="form-group">
-                <label for="password">Senha:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
+      <label for="password">Senha:</label>
+      <input type="password" id="password" name="password" required>
 
-            <button type="submit">Cadastrar</button>
-        </form>
+      <button type="submit">Cadastrar</button>
+    </form>
+    <div class="message" id="message"></div>
+  </div>
 
-        <p id="responseMessage" style="text-align: center; color: green;"></p>
-    </div>
+  <script>
+    const form = document.getElementById('userForm');
+    const message = document.getElementById('message');
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyJxfyCh1oNbJ0ZJuopKnftWCPXGm1dRUn9NPsuPHwqz-KVy05O6_BJ0hReUlWKCU9fFg/exec'; // Coloque a URL do seu Google Apps Script
 
-    <script>
-        document.getElementById('userForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            var username = document.getElementById('username').value;
-            var password = document.getElementById('password').value;
-
-            // URL do Google Apps Script Web App
-            var scriptURL = 'https://script.google.com/macros/s/AKfycbwLgOKsRv_qk0OTTYqncsJQLFHE7qzVWpNeigpKvSMHAndgpt5vRA9o2yFVg6K5RePkTw/exec';
-
-            fetch(scriptURL, {
-                method: 'POST',
-                body: new URLSearchParams({
-                    'username': username,
-                    'password': password
-                })
-            })
-            .then(response => response.text())
-            .then(result => {
-                document.getElementById('responseMessage').textContent = result;
-                document.getElementById('userForm').reset(); // Limpa o formulário após o envio
-            })
-            .catch(error => console.error('Erro ao cadastrar:', error));
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      fetch(scriptURL, { method: 'POST', body: formData })
+        .then(response => {
+          message.innerHTML = 'Usuário cadastrado com sucesso!';
+          form.reset();
+        })
+        .catch(error => {
+          message.innerHTML = 'Erro ao cadastrar usuário.';
+          console.error('Error:', error);
         });
-    </script>
+    });
+  </script>
 </body>
 </html>
