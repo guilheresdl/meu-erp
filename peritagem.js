@@ -10,7 +10,7 @@ document.getElementById('peca').addEventListener('change', function() {
     switch (pecaSelecionada) {
         case 'haste':
             html = `<div class="form-group">
-                        <label>Ação:</label>
+                        <label>Ações:</label>
                         <input type="checkbox" id="fabricarHaste"> Fabricar
                         <input type="checkbox" id="cromarHaste"> Cromar
                         <input type="checkbox" id="recRoscaHaste"> Rec. Rosca
@@ -31,7 +31,7 @@ document.getElementById('peca').addEventListener('change', function() {
 
         case 'camisa':
             html = `<div class="form-group">
-                        <label>Ação:</label>
+                        <label>Ações:</label>
                         <input type="checkbox" id="fabricarCamisa"> Fabricar
                         <input type="checkbox" id="brunirCamisa"> Brunir
                         <input type="checkbox" id="recRoscaCamisa"> Rec. Rosca
@@ -52,7 +52,7 @@ document.getElementById('peca').addEventListener('change', function() {
 
         case 'olhal':
             html = `<div class="form-group">
-                        <label>Ação:</label>
+                        <label>Ações:</label>
                         <input type="checkbox" id="fabricarOlhal"> Fabricar
                         <input type="checkbox" id="recFuroOlhal"> Rec. Furo
                         <input type="checkbox" id="recRoscaOlhal"> Rec. Rosca
@@ -73,7 +73,7 @@ document.getElementById('peca').addEventListener('change', function() {
 
         case 'flange':
             html = `<div class="form-group">
-                        <label>Ação:</label>
+                        <label>Ações:</label>
                         <input type="checkbox" id="fabricarFlange"> Fabricar
                         <input type="checkbox" id="recuperarFlange"> Recuperar
                     </div>
@@ -93,7 +93,7 @@ document.getElementById('peca').addEventListener('change', function() {
 
         case 'fundo':
             html = `<div class="form-group">
-                        <label>Ação:</label>
+                        <label>Ações:</label>
                         <input type="checkbox" id="fabricarFundo"> Fabricar
                         <input type="checkbox" id="recOlhalFundo"> Rec. Olhal
                     </div>
@@ -113,7 +113,7 @@ document.getElementById('peca').addEventListener('change', function() {
 
         case 'embolo':
             html = `<div class="form-group">
-                        <label>Ação:</label>
+                        <label>Ações:</label>
                         <input type="checkbox" id="fabricarEmbolo"> Fabricar
                         <input type="checkbox" id="recOlhalEmbolo"> Rec. Olhal
                         <input type="checkbox" id="recRoscaEmbolo"> Rec. Rosca
@@ -134,7 +134,7 @@ document.getElementById('peca').addEventListener('change', function() {
 
         case 'espacador':
             html = `<div class="form-group">
-                        <label>Ação:</label>
+                        <label>Ações:</label>
                         <input type="checkbox" id="fabricarEspacador"> Fabricar
                         <input type="checkbox" id="recuperarEspacador"> Recuperar
                     </div>
@@ -154,7 +154,7 @@ document.getElementById('peca').addEventListener('change', function() {
 
         case 'jogoVedacao':
             html = `<div class="form-group">
-                        <label>Ação:</label>
+                        <label>Ações:</label>
                         <input type="checkbox" id="substituirJogoVedacao"> Substituir
                         <input type="checkbox" id="clienteFornecer"> Cliente Vai Fornecer
                     </div>`;
@@ -162,6 +162,7 @@ document.getElementById('peca').addEventListener('change', function() {
     }
 
     opcoesPeca.innerHTML = html;
+    opcoesPeca.classList.remove('hidden'); // Mostra as opções quando uma peça é selecionada
 });
 
 // Função para adicionar a peça à tabela de resumo
@@ -188,6 +189,7 @@ function adicionarPeca() {
     document.getElementById('opcoesPeca').innerHTML = '';
 }
 
+// Função para obter ações selecionadas
 function getAcao(peca) {
     const acoes = [];
     const checkboxes = document.querySelectorAll(`#opcoesPeca input[type="checkbox"]`);
