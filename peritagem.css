@@ -5,56 +5,73 @@
 }
 
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: Calibri, sans-serif;
     background-color: #f0f8ff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    color: #333;
 }
 
 .container {
-    background-color: #fff;
+    max-width: 800px;
+    margin: 0 auto;
     padding: 20px;
+    background: #ffffff;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 400px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 h1 {
-    color: #007bff;
     margin-bottom: 20px;
-    text-align: center;
+    color: #007bff;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .form-group {
     margin-bottom: 15px;
+    width: 100%;
 }
 
 label {
-    font-size: 14px;
-    color: #333;
     display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
 }
 
-input[type="text"],
-input[type="number"],
-input[type="file"],
-select {
-    width: 100%;
+input[type="text"], input[type="date"], select {
     padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    width: calc(100% - 22px);
+}
+
+.ss-id-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ss-id-group input {
+    width: 150px;
+    margin-right: 10px;
+}
+
+#opcoesPeça {
+    margin-top: 20px;
+    text-align: left;
+    width: 100%;
 }
 
 button {
-    width: 100%;
-    padding: 10px;
     background-color: #007bff;
-    color: white;
+    color: #fff;
     border: none;
-    border-radius: 4px;
+    padding: 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
 }
@@ -63,24 +80,23 @@ button:hover {
     background-color: #0056b3;
 }
 
-#summaryTable {
-    margin-top: 20px;
+table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 20px;
 }
 
-#summaryTable th,
-#summaryTable td {
-    border: 1px solid #ccc;
-    padding: 10px;
+table th, table td {
+    border: 1px solid #007bff;
+    padding: 8px;
     text-align: center;
 }
 
-.dimension-group {
-    display: flex;
-    justify-content: space-between;
+table th {
+    background-color: #e7f3ff;
+    color: #007bff;
 }
 
-#actions {
-    margin-bottom: 10px;
+.hidden {
+    display: none;
 }
