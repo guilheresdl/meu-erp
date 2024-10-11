@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peritagem</title>
-    <link rel="stylesheet" href="styled.css">
+    <title>Página de Peritagem</title>
+    <link rel="stylesheet" href="peritagem.css">
 </head>
 <body>
     <div class="container">
-        <h1>Peritagem</h1>
+        <h1>Página de Peritagem</h1>
         <form id="peritagemForm">
             <div class="form-group">
-                <label for="clientName">Nome do Cliente</label>
-                <input type="text" id="clientName" required placeholder="Digite o nome do cliente">
+                <label for="cliente">Nome do Cliente:</label>
+                <input type="text" id="cliente" required>
             </div>
             <div class="form-group">
-                <label for="equipmentName">Nome do Equipamento</label>
-                <input type="text" id="equipmentName" required placeholder="Digite o nome do equipamento">
+                <label for="equipamento">Nome do Equipamento:</label>
+                <input type="text" id="equipamento" required>
             </div>
-            <div class="form-group">
-                <label for="ssNumber">SS (Número de Série)</label>
-                <input type="text" id="ssNumber" required placeholder="Digite o número de série">
-                <select id="idNumber">
+            <div class="form-group ss-id-group">
+                <label for="ss">SS (Número de Série):</label>
+                <input type="text" id="ss" required maxlength="10">
+                <select id="id">
                     <option value="">ID</option>
-                    <!-- Gera opções de 1 a 50 -->
+                    <!-- Opções de 1 a 50 -->
                     <script>
                         for (let i = 1; i <= 50; i++) {
                             document.write(`<option value="${i}">${i}</option>`);
@@ -32,17 +32,17 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="responsibleName">Nome do Responsável pela Peritagem</label>
-                <input type="text" id="responsibleName" required placeholder="Digite o nome do responsável">
+                <label for="responsavel">Nome do Responsável pela Peritagem:</label>
+                <input type="text" id="responsavel" required>
             </div>
             <div class="form-group">
-                <label for="date">Data da Peritagem</label>
-                <input type="text" id="date" value="${new Date().toLocaleDateString('pt-BR')}" disabled>
+                <label for="data">Data da Peritagem:</label>
+                <input type="date" id="data" value="" required readonly>
             </div>
             <div class="form-group">
-                <label for="pieceSelect">Selecionar Peça</label>
-                <select id="pieceSelect" required>
-                    <option value="">Escolha uma peça</option>
+                <label for="peca">Peças:</label>
+                <select id="peca">
+                    <option value="">Selecione uma peça</option>
                     <option value="haste">Haste</option>
                     <option value="camisa">Camisa</option>
                     <option value="olhal">Olhal</option>
@@ -50,45 +50,31 @@
                     <option value="fundo">Fundo</option>
                     <option value="embolo">Êmbolo</option>
                     <option value="espacador">Espaçador</option>
-                    <option value="jogoDeVedacao">Jogo de Vedação</option>
+                    <option value="jogoVedacao">Jogo de Vedação</option>
                 </select>
+                <button type="button" onclick="adicionarPeca()">Adicionar Peça</button>
             </div>
-            <div class="form-group" id="pieceOptions" style="display: none;">
-                <div id="actions"></div>
-                <div class="dimension-group">
-                    <label for="diameter">Diâmetro (mm)</label>
-                    <input type="number" id="diameter" placeholder="Digite o diâmetro">
-                </div>
-                <div class="dimension-group">
-                    <label for="length">Comprimento (mm)</label>
-                    <input type="number" id="length" placeholder="Digite o comprimento">
-                </div>
-                <div class="dimension-group">
-                    <label for="width">Largura (mm)</label>
-                    <input type="number" id="width" placeholder="Digite a largura">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="imageUpload">Anexar Fotos</label>
-                <input type="file" id="imageUpload" accept="image/*">
-            </div>
-            <button type="submit">Adicionar Peça</button>
-        </form>
-        <h2>Resumo das Peças</h2>
-        <table id="summaryTable">
-            <thead>
-                <tr>
-                    <th>Peça</th>
-                    <th>Ação</th>
-                    <th>Diâmetro (mm)</th>
-                    <th>Comprimento (mm)</th>
-                    <th>Largura (mm)</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
 
-    <script src="peritagem.js"></script>
+            <div id="opcoesPeca" class="hidden"></div>
+
+            <table id="resumoTable">
+                <thead>
+                    <tr>
+                        <th>Peça</th>
+                        <th>Ação</th>
+                        <th>Diâmetro (mm)</th>
+                        <th>Comprimento (mm)</th>
+                        <th>Largura (mm)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+            <input type="file" id="anexo" accept="image/*">
+            <button type="submit">Salvar Peritagem</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
