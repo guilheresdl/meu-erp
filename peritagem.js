@@ -1,211 +1,101 @@
-document.getElementById('data').value = new Date().toISOString().split('T')[0];
-
-// Atualiza as opções disponíveis quando uma peça é selecionada
-document.getElementById('peca').addEventListener('change', function() {
-    const pecaSelecionada = this.value;
-    const opcoesPeca = document.getElementById('opcoesPeca');
+function exibirOpcoes() {
+    const pecaSelecionada = document.getElementById("pecas").value;
+    const acoesContainer = document.getElementById("acoesContainer");
+    const opcoesEspecificas = document.getElementById("opcoesEspecificas");
     
-    let html = '';
+    // Limpar opções anteriores
+    acoesContainer.innerHTML = "";
 
+    // Verifica a peça selecionada e define as opções de ação
+    let opcoes = [];
     switch (pecaSelecionada) {
-        case 'haste':
-            html = `<div class="form-group">
-                        <label>Ações:</label>
-                        <input type="checkbox" id="fabricarHaste"> Fabricar
-                        <input type="checkbox" id="cromarHaste"> Cromar
-                        <input type="checkbox" id="recRoscaHaste"> Rec. Rosca
-                    </div>
-                    <div class="form-group">
-                        <label for="diametroHaste">Diâmetro (mm):</label>
-                        <input type="text" id="diametroHaste" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="comprimentoHaste">Comprimento (mm):</label>
-                        <input type="text" id="comprimentoHaste" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="larguraHaste">Largura (mm):</label>
-                        <input type="text" id="larguraHaste">
-                    </div>`;
+        case "haste":
+            opcoes = ["Fabricar", "Cromar", "Rec. Rosca"];
             break;
-
-        case 'camisa':
-            html = `<div class="form-group">
-                        <label>Ações:</label>
-                        <input type="checkbox" id="fabricarCamisa"> Fabricar
-                        <input type="checkbox" id="brunirCamisa"> Brunir
-                        <input type="checkbox" id="recRoscaCamisa"> Rec. Rosca
-                    </div>
-                    <div class="form-group">
-                        <label for="diametroCamisa">Diâmetro (mm):</label>
-                        <input type="text" id="diametroCamisa" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="comprimentoCamisa">Comprimento (mm):</label>
-                        <input type="text" id="comprimentoCamisa" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="larguraCamisa">Largura (mm):</label>
-                        <input type="text" id="larguraCamisa">
-                    </div>`;
+        case "camisa":
+            opcoes = ["Fabricar", "Brunir", "Rec. Rosca"];
             break;
-
-        case 'olhal':
-            html = `<div class="form-group">
-                        <label>Ações:</label>
-                        <input type="checkbox" id="fabricarOlhal"> Fabricar
-                        <input type="checkbox" id="recFuroOlhal"> Rec. Furo
-                        <input type="checkbox" id="recRoscaOlhal"> Rec. Rosca
-                    </div>
-                    <div class="form-group">
-                        <label for="diametroOlhal">Diâmetro (mm):</label>
-                        <input type="text" id="diametroOlhal" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="comprimentoOlhal">Comprimento (mm):</label>
-                        <input type="text" id="comprimentoOlhal" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="larguraOlhal">Largura (mm):</label>
-                        <input type="text" id="larguraOlhal">
-                    </div>`;
+        case "olhal":
+            opcoes = ["Fabricar", "Rec. Furo", "Rec. Rosca"];
             break;
-
-        case 'flange':
-            html = `<div class="form-group">
-                        <label>Ações:</label>
-                        <input type="checkbox" id="fabricarFlange"> Fabricar
-                        <input type="checkbox" id="recuperarFlange"> Recuperar
-                    </div>
-                    <div class="form-group">
-                        <label for="diametroFlange">Diâmetro (mm):</label>
-                        <input type="text" id="diametroFlange" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="comprimentoFlange">Comprimento (mm):</label>
-                        <input type="text" id="comprimentoFlange" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="larguraFlange">Largura (mm):</label>
-                        <input type="text" id="larguraFlange">
-                    </div>`;
+        case "flange":
+            opcoes = ["Fabricar", "Recuperar"];
             break;
-
-        case 'fundo':
-            html = `<div class="form-group">
-                        <label>Ações:</label>
-                        <input type="checkbox" id="fabricarFundo"> Fabricar
-                        <input type="checkbox" id="recOlhalFundo"> Rec. Olhal
-                    </div>
-                    <div class="form-group">
-                        <label for="diametroFundo">Diâmetro (mm):</label>
-                        <input type="text" id="diametroFundo" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="comprimentoFundo">Comprimento (mm):</label>
-                        <input type="text" id="comprimentoFundo" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="larguraFundo">Largura (mm):</label>
-                        <input type="text" id="larguraFundo">
-                    </div>`;
+        case "fundo":
+            opcoes = ["Fabricar", "Rec. Olhal"];
             break;
-
-        case 'embolo':
-            html = `<div class="form-group">
-                        <label>Ações:</label>
-                        <input type="checkbox" id="fabricarEmbolo"> Fabricar
-                        <input type="checkbox" id="recOlhalEmbolo"> Rec. Olhal
-                        <input type="checkbox" id="recRoscaEmbolo"> Rec. Rosca
-                    </div>
-                    <div class="form-group">
-                        <label for="diametroEmbolo">Diâmetro (mm):</label>
-                        <input type="text" id="diametroEmbolo" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="comprimentoEmbolo">Comprimento (mm):</label>
-                        <input type="text" id="comprimentoEmbolo" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="larguraEmbolo">Largura (mm):</label>
-                        <input type="text" id="larguraEmbolo">
-                    </div>`;
+        case "embolo":
+            opcoes = ["Fabricar", "Rec. Olhal", "Rec. Rosca"];
             break;
-
-        case 'espacador':
-            html = `<div class="form-group">
-                        <label>Ações:</label>
-                        <input type="checkbox" id="fabricarEspacador"> Fabricar
-                        <input type="checkbox" id="recuperarEspacador"> Recuperar
-                    </div>
-                    <div class="form-group">
-                        <label for="diametroEspacador">Diâmetro (mm):</label>
-                        <input type="text" id="diametroEspacador" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="comprimentoEspacador">Comprimento (mm):</label>
-                        <input type="text" id="comprimentoEspacador" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="larguraEspacador">Largura (mm):</label>
-                        <input type="text" id="larguraEspacador">
-                    </div>`;
+        case "espacador":
+            opcoes = ["Fabricar", "Recuperar"];
             break;
-
-        case 'jogoVedacao':
-            html = `<div class="form-group">
-                        <label>Ações:</label>
-                        <input type="checkbox" id="substituirJogoVedacao"> Substituir
-                        <input type="checkbox" id="clienteFornecer"> Cliente Vai Fornecer
-                    </div>`;
+        case "jogoVedacao":
+            opcoes = ["Substituir", "Cliente Vai Fornecer"];
             break;
+        default:
+            opcoesEspecificas.classList.add("hidden");
+            return;
     }
 
-    opcoesPeca.innerHTML = html;
-    opcoesPeca.classList.remove('hidden'); // Mostra as opções quando uma peça é selecionada
-});
+    // Adiciona as novas opções de ação como checkboxes
+    opcoes.forEach(opcao => {
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.id = opcao;
+        checkbox.value = opcao.toLowerCase().replace(/ /g, "-");
 
-// Função para adicionar a peça à tabela de resumo
+        const label = document.createElement("label");
+        label.htmlFor = opcao;
+        label.textContent = opcao;
+
+        // Agrupando checkbox e label em um div
+        const div = document.createElement("div");
+        div.classList.add("checkbox-group");
+        div.appendChild(checkbox);
+        div.appendChild(label);
+        acoesContainer.appendChild(div);
+    });
+
+    opcoesEspecificas.classList.remove("hidden");
+}
+
 function adicionarPeca() {
-    const pecaSelecionada = document.getElementById('peca').value;
-    const acao = getAcao(pecaSelecionada);
-    const diametro = document.getElementById(`diametro${pecaSelecionada.charAt(0).toUpperCase() + pecaSelecionada.slice(1)}`).value;
-    const comprimento = document.getElementById(`comprimento${pecaSelecionada.charAt(0).toUpperCase() + pecaSelecionada.slice(1)}`).value;
-    const largura = document.getElementById(`largura${pecaSelecionada.charAt(0).toUpperCase() + pecaSelecionada.slice(1)}`).value;
+    const nomePeca = document.getElementById("pecas").value;
+    const acoes = Array.from(document.querySelectorAll('#acoesContainer input[type="checkbox"]:checked')).map(checkbox => checkbox.value);
+    const diametro = document.getElementById("diametro").value;
+    const comprimento = document.getElementById("comprimento").value;
+    const largura = document.getElementById("largura").value;
 
-    const tabela = document.querySelector('#resumoTable tbody');
-    const novaLinha = tabela.insertRow();
-
-    novaLinha.innerHTML = `
-        <td>${pecaSelecionada.charAt(0).toUpperCase() + pecaSelecionada.slice(1)}</td>
-        <td>${acao}</td>
+    // Adiciona uma nova linha na tabela
+    const table = document.getElementById("tabelaResumos").getElementsByTagName('tbody')[0];
+    const newRow = table.insertRow();
+    newRow.innerHTML = `
+        <td>${nomePeca.charAt(0).toUpperCase() + nomePeca.slice(1)}</td>
+        <td>${acoes.join(', ')}</td>
         <td>${diametro}</td>
         <td>${comprimento}</td>
         <td>${largura}</td>
         <td><span class="delete-button" onclick="excluirLinha(this)">X</span></td>
     `;
 
-    // Limpar campos após adicionar
-    document.getElementById('peca').value = '';
-    document.getElementById('opcoesPeca').innerHTML = '';
+    // Limpa os campos após a adição
+    document.getElementById("pecas").value = "";
+    document.getElementById("acoesContainer").innerHTML = ""; // Limpa as ações
+    document.getElementById("diametro").value = "";
+    document.getElementById("comprimento").value = "";
+    document.getElementById("largura").value = "";
+    document.getElementById("opcoesEspecificas").classList.add("hidden"); // Esconde as opções específicas
 }
 
-// Função para obter ações selecionadas
-function getAcao(peca) {
-    const acoes = [];
-    const checkboxes = document.querySelectorAll(`#opcoesPeca input[type="checkbox"]`);
-
-    checkboxes.forEach(checkbox => {
-        if (checkbox.checked) {
-            acoes.push(checkbox.id.replace(peca.toLowerCase(), ''));
-        }
-    });
-
-    return acoes.join(', ');
+function excluirLinha(button) {
+    const row = button.parentNode.parentNode; // Captura a linha que contém o botão
+    row.parentNode.removeChild(row); // Remove a linha da tabela
 }
 
-// Função para excluir uma linha da tabela
-function excluirLinha(element) {
-    const linha = element.parentNode.parentNode;
-    linha.parentNode.removeChild(linha);
+function definirDataHoje() {
+    const dataInput = document.getElementById("dataPeritagem");
+    const hoje = new Date().toISOString().split('T')[0]; // Formato YYYY-MM-DD
+    dataInput.value = hoje; // Define a data atual no campo
 }
+
