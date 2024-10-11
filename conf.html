@@ -1,38 +1,107 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registration Form</title>
-  <link rel="stylesheet" href="conf.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Usuário</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            display: inline-block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <form id="registration-form" action="https://script.google.com/macros/s/AKfycbweNZ69Yh5Cmyq2XcErqY3jU_Lbty41qVCzNOb9klQd_VZxS8-r6pbOQKZrf2z-teS8XQ/exec" method="post">
-      <h2>Registration Form</h2>
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="Name" required>
-      <br><br>
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="Password" required>
-      <br><br>
-      <button type="submit">Register</button>
-    </form>
-  </div>
+    <div class="container">
+        <h1>Cadastro de Usuário</h1>
+        <form id="userForm">
+            <div class="form-group">
+                <label for="username">Nome de Usuário:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
 
-  <script>
-    const form = document.getElementById('registration-form');
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
-      fetch(form.action, {
-        method: 'POST',
-        body: formData,
-      })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.error(error));
-    });
-  </script>
+            <div class="form-group">
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <button type="submit">Cadastrar</button>
+        </form>
+
+        <p id="responseMessage" style="text-align: center; color: green;"></p>
+    </div>
+
+    <script>
+        document.getElementById('userForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            // URL do Google Apps Script Web App
+            var scriptURL = 'https://script.google.com/macros/s/AKfycbzoRLjriftde4yI4MiNhmWVMdmc6IsQ3OigNHSiGXlCitByQgwHT3dOPTwuNMdiGlkTQg/exec';
+
+            fetch(scriptURL, {
+                method: 'POST',
+                body: new URLSearchParams({
+                    'username': username,
+                    'password': password
+                })
+            })
+            .then(response => response.text())
+            .then(result => {
+                document.getElementById('responseMessage').textContent = result;
+                document.getElementById('userForm').reset(); // Limpa o formulário após o envio
+            })
+            .catch(error => console.error('Erro ao cadastrar:', error));
+        });
+    </script>
 </body>
 </html>
