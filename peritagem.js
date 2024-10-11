@@ -1,91 +1,62 @@
+document.getElementById('data').value = new Date().toISOString().split('T')[0];
 
-const pieceSelect = document.getElementById('pieceSelect');
-const pieceOptions = document.getElementById('pieceOptions');
-const actionsContainer = document.getElementById('actions');
-const summaryTableBody = document.getElementById('summaryTable').getElementsByTagName('tbody')[0];
+document.getElementById('peca').addEventListener('change', function() {
+    const pecaSelecionada = this.value;
+    const opcoesPeca = document.getElementById('opcoesPeca');
+    
+    let html = '';
 
-pieceSelect.addEventListener('change', function() {
-    const selectedPiece = this.value;
-    actionsContainer.innerHTML = ''; // Limpa as ações anteriores
-    document.getElementById('diameter').value = '';
-    document.getElementById('length').value = '';
-    document.getElementById('width').value = '';
+    switch (pecaSelecionada) {
+        case 'haste':
+            html = `<div class="form-group">
+                        <label>Ação:</label>
+                        <input type="checkbox" id="fabricar"> Fabricar
+                        <input type="checkbox" id="cromar"> Cromar
+                        <input type="checkbox" id="recRosca"> Rec. Rosca
+                    </div>
+                    <div class="form-group">
+                        <label for="diametro">Diâmetro (mm):</label>
+                        <input type="text" id="diametro" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="comprimento">Comprimento (mm):</label>
+                        <input type="text" id="comprimento" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="largura">Largura (mm):</label>
+                        <input type="text" id="largura">
+                    </div>`;
+            break;
+        // Adicione as opções para as outras peças da mesma forma
 
-    if (selectedPiece) {
-        let actionsHtml = '';
-
-        // Define as ações com base na peça selecionada
-        switch (selectedPiece) {
-            case 'haste':
-                actionsHtml += createActionCheckbox('fabricar', 'Fabricar');
-                actionsHtml += createActionCheckbox('cromar', 'Cromar');
-                actionsHtml += createActionCheckbox('recRosca', 'Rec. Rosca');
-                break;
-            case 'camisa':
-                actionsHtml += createActionCheckbox('fabricar', 'Fabricar');
-                actionsHtml += createActionCheckbox('brunir', 'Brunir');
-                actionsHtml += createActionCheckbox('recRosca', 'Rec. Rosca');
-                break;
-            case 'olhal':
-                actionsHtml += createActionCheckbox('fabricar', 'Fabricar');
-                actionsHtml += createActionCheckbox('recFuro', 'Rec. Furo');
-                actionsHtml += createActionCheckbox('recRosca', 'Rec. Rosca');
-                break;
-            case 'flange':
-                actionsHtml += createActionCheckbox('fabricar', 'Fabricar');
-                actionsHtml += createActionCheckbox('recuperar', 'Recuperar');
-                break;
-            case 'fundo':
-                actionsHtml += createActionCheckbox('fabricar', 'Fabricar');
-                actionsHtml += createActionCheckbox('recOlhal', 'Rec. Olhal');
-                break;
-            case 'embolo':
-                actionsHtml += createActionCheckbox('fabricar', 'Fabricar');
-                actionsHtml += createActionCheckbox('recOlhal', 'Rec. Olhal');
-                actionsHtml += createActionCheckbox('recRosca', 'Rec. Rosca');
-                break;
-            case 'espacador':
-                actionsHtml += createActionCheckbox('fabricar', 'Fabricar');
-                actionsHtml += createActionCheckbox('recuperar', 'Recuperar');
-                break;
-            case 'jogoDeVedacao':
-                actionsHtml += createActionCheckbox('substituir', 'Substituir');
-                actionsHtml += createActionCheckbox('clienteVaiFornecer', 'Cliente Vai Fornecer');
-                break;
-        }
-
-        actionsContainer.innerHTML = actionsHtml;
-        pieceOptions.style.display = 'block';
-    } else {
-        pieceOptions.style.display = 'none';
+        default:
+            html = '';
     }
+
+    opcoesPeca.innerHTML = html;
+    opcoesPeca.classList.remove('hidden');
 });
 
-document.getElementById('peritagemForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const pieceName = pieceSelect.value;
-    const actions = Array.from(actionsContainer.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
-    const diameter = document.getElementById('diameter').value;
-    const length = document.getElementById('length').value;
-    const width = document.getElementById('width').value;
+function adicionarPeca() {
+    const peca = document.getElementById('peca').value;
+    const acao = Array.from(document.querySelectorAll('#opcoesPeca input[type="checkbox"]:checked')).map(cb => cb.id).join(', ');
+    const diametro = document.getElementById('diametro').value;
+    const comprimento = document.getElementById('comprimento').value;
+    const largura = document.getElementById('largura').value;
 
-    const newRow = summaryTableBody.insertRow();
-    newRow.insertCell(0).textContent = pieceName;
-    newRow.insertCell(1).textContent = actions.join(', ') || 'Nenhuma ação';
-    newRow.insertCell(2).textContent = diameter;
-    newRow.insertCell(3).textContent = length;
-    newRow.insertCell(4).textContent = width;
+    if (peca && acao && diametro && comprimento) {
+        const tabela = document.getElementById('resumoTable').querySelector('tbody');
+        const novaLinha = tabela.insertRow();
 
-    // Reseta o formulário
-    this.reset();
-    pieceOptions.style.display = 'none';
-});
+        novaLinha.insertCell(0).textContent = peca;
+        novaLinha.insertCell(1).textContent = acao;
+        novaLinha.insertCell(2).textContent = diametro;
+        novaLinha.insertCell(3).textContent = comprimento;
+        novaLinha.insertCell(4).textContent = largura;
 
-function createActionCheckbox(value, label) {
-    return `
-        <div>
-            <input type="checkbox" id="${value}" value="${value}">
-            <label for="${value}">${label}</label>
-        </div>
-    `;
+        document.getElementById('peritagemForm').reset();
+        document.getElementById('opcoesPeca').innerHTML = '';
+    } else {
+        alert("Preencha todos os campos obrigatórios.");
+    }
 }
