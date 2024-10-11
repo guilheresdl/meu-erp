@@ -1,4 +1,5 @@
-* {
+/* Reset básico para o design */
+body, h1, h2, p, input, select, button {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -6,17 +7,20 @@
 
 body {
     font-family: Calibri, sans-serif;
-    background-color: #f0f8ff;
+    background-color: #e6f7ff;
     color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 .container {
-    max-width: 800px;
-    margin: 0 auto;
+    max-width: 600px;
     padding: 20px;
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
@@ -25,15 +29,9 @@ h1 {
     color: #007bff;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 .form-group {
     margin-bottom: 15px;
-    width: 100%;
+    text-align: left;
 }
 
 label {
@@ -45,25 +43,27 @@ label {
 input[type="text"], input[type="date"], select {
     padding: 10px;
     border: 1px solid #007bff;
-    border-radius: 5px;
-    width: calc(100% - 22px);
+    border-radius: 4px;
+    width: 100%;
 }
 
 .ss-id-group {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 }
 
-.ss-id-group input {
-    width: 150px;
-    margin-right: 10px;
+#ss {
+    width: calc(100% - 100px); /* Ajuste para permitir a largura do select */
 }
 
-#opcoesPeça {
+#id {
+    width: 80px; /* Ajuste o tamanho conforme necessário */
+    margin-left: 5px;
+}
+
+#opcoesPeca {
     margin-top: 20px;
-    text-align: left;
-    width: 100%;
 }
 
 button {
@@ -71,7 +71,7 @@ button {
     color: #fff;
     border: none;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
 }
@@ -87,14 +87,14 @@ table {
 }
 
 table th, table td {
-    border: 1px solid #007bff;
+    border: 1px solid #ddd;
     padding: 8px;
-    text-align: center;
+    text-align: left;
 }
 
 table th {
-    background-color: #e7f3ff;
-    color: #007bff;
+    background-color: #007bff;
+    color: white;
 }
 
 .hidden {
