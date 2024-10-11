@@ -1,58 +1,39 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Configurações</title>
-  <link rel="stylesheet" href="conf.css">
+  <title>Registration Form</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>Configurações</h1>
-  </header>
-  <main>
-    <div class="container">
-      <form id="register-form">
-        <h2>Cadastrar Usuário</h2>
-        <div class="input-group">
-          <label for="username">Username</label>
-          <input type="text" id="username" name="username">
-          <div class="error"></div>
-        </div>
-        <div class="input-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email">
-          <div class="error"></div>
-        </div>
-        <div class="input-group">
-          <label for="password">Senha</label>
-          <input type="password" id="password" name="password">
-          <div class="error"></div>
-        </div>
-        <div class="input-group">
-          <label for="cpassword">Confirmar Senha</label>
-          <input type="password" id="cpassword" name="cpassword">
-          <div class="error"></div>
-        </div>
-        <button type="submit">Cadastrar</button>
-      </form>
+  <form id="registration-form" action="https://script.google.com/macros/s/AKfycbx7859P8b6DaJ6en759vIwO3xxh6zLQw5RiCUAba-lQ28ArHHlVI-jEsmbFoD1Ud4ElVA/exec" method="post">
+    <h2>Registration Form</h2>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="Name" required>
+    <br><br>
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="Username" required>
+    <br><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="Password" required>
+    <br><br>
+    <button type="submit">Register</button>
+  </form>
 
-      <h2>Usuários Cadastrados</h2>
-      <table id="user-table">
-        <thead>
-          <tr>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody id="user-list">
-          <!-- User list will be populated here -->
-        </tbody>
-      </table>
-    </div>
-
-    <script src="script.js"></script>
-  </main>
+  <script>
+    const form = document.getElementById('registration-form');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+      })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+    });
+  </script>
 </body>
 </html>
