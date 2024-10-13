@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="criarperitagem.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.12/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="contentToSave">
         <h1>Criar Peritagem</h1>
         <div class="form-group">
             <label for="cliente">Nome do Cliente:</label>
@@ -88,7 +89,8 @@
         </div>
 
         <button onclick="enviarFormulario()">Enviar</button>
-        <button onclick="gerarPDF()">Gerar PDF</button>
+        <button onclick="gerarPDF()">Gerar PDF com SS e ID</button>
+        <button onclick="salvarPaginaComoPDF()">Salvar Página como PDF</button>
     </div>
 
     <script src="criarperitagem.js"></script>
