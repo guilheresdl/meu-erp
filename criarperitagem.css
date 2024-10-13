@@ -49,21 +49,22 @@ input, select {
     border-radius: 4px;
 }
 
-/* Estilo da combinação SS e ID */
+/* Estilo para a combinação SS e ID */
 .ss-id-group {
     display: flex;
-    align-items: center; /* Alinha os itens no centro */
+    justify-content: flex-start; /* Alinha à esquerda */
+    margin-top: 5px; /* Espaçamento superior */
 }
 
 /* Ajuste para os campos SS e ID */
 #ss {
     width: 80px; /* Largura fixa para SS */
-    margin-right: 0; /* Sem margem à direita para colar o próximo campo */
+    margin-right: 0; /* Remove a margem direita para colar os campos */
 }
 
 #id {
     width: 80px; /* Largura fixa para ID */
-    margin-left: 0; /* Sem margem à esquerda para colar o campo anterior */
+    margin-left: 0; /* Remove a margem esquerda para colar os campos */
 }
 
 button {
@@ -93,6 +94,14 @@ table, th, td {
 th, td {
     padding: 10px;
     text-align: center;
+}
+
+/* Adicionando o estilo para o X vermelho */
+.excluir {
+    color: red;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 20px; /* Ajuste o tamanho conforme necessário */
 }
 
 .hidden {
