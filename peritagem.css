@@ -1,4 +1,4 @@
-/* Estilos gerais */
+/* Reset básico para evitar inconsistências entre navegadores */
 * {
     margin: 0;
     padding: 0;
@@ -6,49 +6,76 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     background-color: #f0f8ff;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    margin: 0;
 }
 
-/* Container para os blocos */
 .container {
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #007bff;
+    margin-bottom: 30px;
+}
+
+.options-container {
     display: flex;
     justify-content: space-around;
     gap: 20px;
-    width: 80%;
     max-width: 1000px;
+    margin: 0 auto;
 }
 
-/* Estilos dos blocos */
-.block {
-    width: 30%;
-    padding: 40px;
-    background-color: #007bff;
-    color: white;
+.option-box {
+    background-color: #fff;
     border-radius: 10px;
-    text-align: center;
-    text-decoration: none; /* Remove sublinhado */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 250px;
+    height: 200px;
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s, box-shadow 0.3s;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    text-decoration: none; /* Remove o sublinhado dos links */
 }
 
-.block:hover {
-    background-color: #0056b3;
-}
-
-.block h2 {
+.option-box h2 {
+    font-size: 1.5em;
+    color: #007bff;
     margin-bottom: 10px;
 }
 
-.block p {
-    margin-top: 5px;
-    font-size: 18px;
+.option-box p {
+    font-size: 1em;
+    color: #333;
+}
+
+.option-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.option-box:visited {
+    color: #007bff;
+}
+
+@media (max-width: 768px) {
+    .options-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .option-box {
+        width: 90%;
+        margin-bottom: 20px;
+    }
 }
