@@ -16,8 +16,11 @@ function exibirOpcoes() {
     const peca = document.getElementById("peca").value;
     const acoesContainer = document.querySelector('.acoes-container');
     const medidasContainer = document.querySelector('.medidas-container');
+    const opcoesPeca = document.getElementById("opcoesPeca");
+
     acoesContainer.innerHTML = ""; // Limpa as opções anteriores
     medidasContainer.classList.add("hidden"); // Oculta o container de medidas
+    opcoesPeca.classList.remove("hidden"); // Garante que o container de opções da peça seja exibido
 
     if (peca) {
         medidasContainer.classList.remove("hidden"); // Mostra o container de medidas
