@@ -90,6 +90,12 @@ td {
     text-align: center;
 }
 
+/* Estilo das opções das ações das peças */
+#acoesDisponiveis label {
+    display: inline-block; /* Faz as checkboxes se alinharem lado a lado */
+    margin-right: 15px; /* Espaço entre as checkboxes */
+}
+
 .hidden {
     display: none;
 }
