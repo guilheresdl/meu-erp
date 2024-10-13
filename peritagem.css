@@ -63,6 +63,12 @@ h1 {
     box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
 }
 
+/* Remover o sublinhado dos links */
+a {
+    text-decoration: none;
+    color: inherit; /* Preserva a cor original */
+}
+
 @media (max-width: 768px) {
     .options-container {
         flex-direction: column;
