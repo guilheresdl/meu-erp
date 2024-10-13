@@ -5,6 +5,7 @@
     box-sizing: border-box;
 }
 
+/* Estilos gerais do corpo */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f0f8ff;
@@ -14,32 +15,37 @@ body {
     height: 100vh;
 }
 
+/* Estilo do container principal */
 .container {
     width: 90%;
     max-width: 800px;
-    background: #fff;
+    background-color: #fff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
+/* Estilo do título */
 h1 {
     color: #007bff;
     margin-bottom: 20px;
 }
 
+/* Estilo para os grupos de formulário */
 .form-group {
     margin-bottom: 15px;
     text-align: left;
 }
 
+/* Estilo das labels */
 label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
 }
 
+/* Estilo dos inputs e selects */
 input, select {
     width: 100%;
     padding: 10px;
@@ -47,6 +53,7 @@ input, select {
     border-radius: 4px;
 }
 
+/* Estilo para os botões */
 button {
     padding: 10px 20px;
     background-color: #007bff;
@@ -61,6 +68,7 @@ button:hover {
     background-color: #0056b3;
 }
 
+/* Estilo da tabela de resumo */
 table {
     width: 100%;
     margin-top: 20px;
@@ -76,6 +84,21 @@ th, td {
     text-align: center;
 }
 
+/* Classe oculta */
 .hidden {
     display: none;
+}
+
+/* Ajuste da form-row para alinhar SS e ID lado a lado */
+.form-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.form-row .form-group:nth-child(2) {
+    margin-left: 15px;
 }
