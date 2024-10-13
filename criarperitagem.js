@@ -84,54 +84,100 @@ function adicionarPeca() {
     const acaoCell = novaLinha.insertCell(5);
     const botaoExcluir = document.createElement('button');
     botaoExcluir.textContent = "Excluir";
-    botaoExcluir.onclick = () => tabela.deleteRow(novaLinha.rowIndex - 1);
+    botaoExcluir.onclick = () => tabela.deleteRow(novaLinha.rowIndex - 1); // Exclui a linha
     acaoCell.appendChild(botaoExcluir);
 
-    // Limpa os campos após adicionar a peça
+    // Limpa os campos após adicionar
     document.getElementById("peca").value = "";
-    document.querySelector('.acoes-container').innerHTML = "";
     document.getElementById("diametro").value = "";
     document.getElementById("comprimento").value = "";
     document.getElementById("largura").value = "";
+    document.getElementById("opcoesPeca").classList.add("hidden");
 }
 
-// Função para gerar o PDF com os dados da peritagem
+// Função para gerar PDF com informações adicionais
 async function gerarPDF() {
     const { jsPDF } = window.jspdf;
-    const { autoTable } = window.jspdf;
 
     const doc = new jsPDF();
+    const ss = document.getElementById("ss").value;
+    const id = document.getElementById("id").value;
     const cliente = document.getElementById("cliente").value;
     const equipamento = document.getElementById("equipamento").value;
-    const ss = document.getElementById("ss").value + document.getElementById("id").value;
     const responsavel = document.getElementById("responsavel").value;
     const data = document.getElementById("data").value;
 
-    doc.text(`Peritagem - ${data}`, 14, 20);
-    doc.text(`Cliente: ${cliente}`, 14, 30);
-    doc.text(`Equipamento: ${equipamento}`, 14, 40);
-    doc.text(`SS: ${ss}`, 14, 50);
-    doc.text(`Responsável: ${responsavel}`, 14, 60);
+    // Título do PDF
+    doc.setFontSize(16);
+    doc.text(`Peritagem da SS ${ss} - ID ${id}`, 14, 20);
+    
+    // Cliente e Equipamento
+    doc.setFontSize(12);
+    doc.text(`Cliente: ${cliente}`, 14, 40);
+    doc.text(`Equipamento: ${equipamento}`, 14, 50);
+    doc.text(`\nPeças Adicionadas:`, 14, 60);
 
-    const tabela = document.getElementById("resumoTable");
-    const rows = [];
-    for (let i = 1; i < tabela.rows.length; i++) {
-        const row = tabela.rows[i].cells;
-        const rowData = [];
-        for (let j = 0; j < row.length; j++) {
-            rowData.push(row[j].textContent);
-        }
-        rows.push(rowData);
+    // Obtém as informações da tabela de resumo
+    const tabela = document.getElementById("resumoTable").getElementsByTagName('tbody')[0];
+    const numLinhas = tabela.rows.length;
+
+    let yPos = 80; // Inicia a posição vertical
+    const espacoEntre = 40; // Aumenta o espaço entre as peças
+
+    // Adiciona as peças e suas dimensões ao PDF
+    for (let i = 0; i < numLinhas; i++) {
+        const linha = tabela.rows[i];
+        const peca = linha.cells[0].textContent;
+        const acoes = linha.cells[1].textContent;
+        const diametro = linha.cells[2].textContent;
+        const comprimento = linha.cells[3].textContent;
+        const largura = linha.cells[4].textContent;
+
+        // Adiciona as informações da peça
+        doc.text(`Peça: ${peca}`, 14, yPos);
+        doc.text(`Ações: ${acoes}`, 14, yPos + 10);
+        doc.text(`Dimensões: ${diametro} mm (D), ${comprimento} mm (C), ${largura} mm (L)`, 14, yPos + 20);
+        doc.text(`-------------------------------------`, 14, yPos + 30);
+
+        // Atualiza a posição vertical para a próxima peça
+        yPos += espacoEntre; 
     }
 
-    autoTable(doc, {
-        head: [['Peça', 'Ação', 'Diâmetro (mm)', 'Comprimento (mm)', 'Largura (mm)', 'Ação']],
-        body: rows,
-        startY: 70
-    });
+    // Adiciona anexos se houver
+    const anexos = document.getElementById("anexos").files;
+    if (anexos.length > 0) {
+        doc.text(`Anexos:`, 14, yPos);
+        yPos += 10; // Adiciona espaço após o título de anexos
+        for (let i = 0; i < anexos.length; i++) {
+            doc.text(`- ${anexos[i].name}`, 14, yPos);
+            yPos += 10; // Aumenta o espaço entre os anexos
+        }
+        yPos += 10; // Espaço adicional após a lista de anexos
+    }
+
+    // Adiciona informações do responsável e da data
+    doc.text(`Responsável: ${responsavel}`, 14, yPos);
+    doc.text(`Data: ${data}`, 14, yPos + 10);
 
     // Gerar e salvar o PDF
-    doc.save(`peritagem_${cliente}.pdf`);
+    doc.save(`peritagem_ss_id.pdf`);
+}
+
+
+
+// Função para salvar a página como PDF
+async function salvarPaginaComoPDF() {
+    const content = document.getElementById('contentToSave');
+
+    html2canvas(content).then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF();
+
+        // Adiciona a imagem da página ao PDF
+        pdf.addImage(imgData, 'PNG', 0, 0);
+        pdf.save('pagina_peritagem.pdf');
+    });
 }
 
 // Função para enviar o formulário (adicionar lógica conforme necessário)
