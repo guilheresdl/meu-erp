@@ -12,11 +12,11 @@
         <h1>Criar Peritagem</h1>
         <div class="form-group">
             <label for="cliente">Nome do Cliente:</label>
-            <input type="text" id="cliente" placeholder="Nome do cliente">
+            <input type="text" id="cliente" placeholder="Nome do cliente" required>
         </div>
         <div class="form-group">
             <label for="equipamento">Nome do Equipamento:</label>
-            <input type="text" id="equipamento" placeholder="Nome do equipamento">
+            <input type="text" id="equipamento" placeholder="Nome do equipamento" required>
         </div>
         <div class="form-group">
             <label for="ss">SS:</label>
@@ -35,7 +35,7 @@
         </div>
         <div class="form-group">
             <label for="responsavel">Nome do Responsável pela Peritagem:</label>
-            <input type="text" id="responsavel" placeholder="Nome do responsável">
+            <input type="text" id="responsavel" placeholder="Nome do responsável" required>
         </div>
         <div class="form-group">
             <label for="data">Data da Peritagem:</label>
@@ -61,11 +61,11 @@
             </div>
             <div class="medidas-container hidden">
                 <label for="diametro">Diâmetro (mm):</label>
-                <input type="number" id="diametro" placeholder="Diâmetro (mm)">
+                <input type="number" id="diametro" placeholder="Diâmetro (mm)" required>
                 <label for="comprimento">Comprimento (mm):</label>
-                <input type="number" id="comprimento" placeholder="Comprimento (mm)">
+                <input type="number" id="comprimento" placeholder="Comprimento (mm)" required>
                 <label for="largura">Largura (mm):</label>
-                <input type="number" id="largura" placeholder="Largura (mm)">
+                <input type="number" id="largura" placeholder="Largura (mm)" required>
             </div>
             <button onclick="adicionarPeca()">Adicionar Peça</button>
         </div>
