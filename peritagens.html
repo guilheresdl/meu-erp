@@ -4,26 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Peritagens</title>
-    <link rel="stylesheet" href="peritagem.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <h1>Painel de Peritagens</h1>
         <div class="options-container">
-            <div class="option-box" id="criarPeritagem">
+            <!-- Cada bloco agora é um link -->
+            <a href="criarperitagem.html" class="option-box">
                 <h2>Criar Peritagem</h2>
-                <p>Inicie uma nova peritagem para seu cliente.</p>
-            </div>
-            <div class="option-box" id="consultarPeritagem">
+                <p>Inicie uma nova peritagem.</p>
+            </a>
+            <a href="consultarperitagem.html" class="option-box">
                 <h2>Consultar Peritagem</h2>
                 <p>Veja detalhes das peritagens anteriores.</p>
-            </div>
-            <div class="option-box" id="excluirPeritagem">
+            </a>
+            <a href="editarperitagem.html" class="option-box">
                 <h2>Excluir Peritagem</h2>
-                <p>Remova peritagens que não são mais necessárias.</p>
-            </div>
+                <p>Edite as peritagens</p>
+            </a>
         </div>
     </div>
-    <script src="peritagem.js"></script>
 </body>
 </html>
