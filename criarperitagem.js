@@ -208,5 +208,58 @@ async function salvarPaginaComoPDF() {
 
 // Função para enviar o formulário (adicionar lógica conforme necessário)
 function enviarFormulario() {
-    alert('Formulário enviado!'); // Placeholder para lógica de envio
+    const cliente = document.getElementById("cliente").value;
+    const equipamento = document.getElementById("equipamento").value;
+    const ss = document.getElementById("ss").value;
+    const id = document.getElementById("id").value;
+    const responsavel = document.getElementById("responsavel").value;
+    const data = document.getElementById("data").value;
+    const peca = document.getElementById("peca").value;
+    const acoes = Array.from(document.querySelectorAll('.acoes-container input[type="checkbox"]:checked'))
+        .map(cb => cb.nextSibling.textContent.trim()).join(", ");
+    const diametro = document.getElementById("diametro").value;
+    const comprimento = document.getElementById("comprimento").value;
+    const largura = document.getElementById("largura").value;
+
+    // Verifica se todos os campos obrigatórios estão preenchidos
+    if (!cliente || !equipamento || !ss || !id || !responsavel || !data) {
+        alert("Por favor, preencha todos os campos obrigatórios.");
+        return;
+    }
+
+    // Dados que serão enviados para a planilha
+    const dados = {
+        cliente: cliente,
+        equipamento: equipamento,
+        ss: ss,
+        id: id,
+        responsavel: responsavel,
+        data: data,
+        peca: peca,
+        acoes: acoes,
+        diametro: diametro,
+        comprimento: comprimento,
+        largura: largura
+    };
+
+    // URL do Google Apps Script implantado
+    const urlScript = 'URL_DO_SEU_GOOGLE_APPS_SCRIPT'; // Cole o URL do seu Google Apps Script aqui
+
+    // Fazendo a requisição POST para enviar os dados
+    fetch(urlScript, {
+        method: 'POST',
+        mode: 'no-cors', // para evitar problemas com CORS
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dados)
+    })
+    .then(response => {
+        alert('Formulário enviado com sucesso!');
+    })
+    .catch(error => {
+        console.error('Erro ao enviar o formulário:', error);
+        alert('Ocorreu um erro ao enviar o formulário.');
+    });
 }
+
