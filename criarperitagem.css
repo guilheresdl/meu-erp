@@ -5,17 +5,17 @@
     box-sizing: border-box;
 }
 
-/* Estilos gerais do corpo */
+/* Estilo do corpo */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f0f8ff;
+    background-color: #e6f7ff;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
 
-/* Estilo do container principal */
+/* Container principal */
 .container {
     width: 90%;
     max-width: 800px;
@@ -26,13 +26,13 @@ body {
     text-align: center;
 }
 
-/* Estilo do título */
+/* Título */
 h1 {
     color: #007bff;
     margin-bottom: 20px;
 }
 
-/* Estilo para os grupos de formulário */
+/* Grupos de formulário */
 .form-group {
     margin-bottom: 15px;
     text-align: left;
@@ -45,15 +45,16 @@ label {
     font-weight: bold;
 }
 
-/* Estilo dos inputs e selects */
+/* Inputs e selects */
 input, select {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #007bff;
     border-radius: 4px;
+    font-size: 16px;
 }
 
-/* Estilo para os botões */
+/* Botões */
 button {
     padding: 10px 20px;
     background-color: #007bff;
@@ -62,34 +63,38 @@ button {
     border-radius: 5px;
     cursor: pointer;
     margin: 10px;
+    font-size: 16px;
 }
 
 button:hover {
     background-color: #0056b3;
 }
 
-/* Estilo da tabela de resumo */
+/* Tabela de resumo */
 table {
     width: 100%;
     margin-top: 20px;
     border-collapse: collapse;
-}
-
-table, th, td {
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
 }
 
 th, td {
     padding: 10px;
     text-align: center;
+    border: 1px solid #ddd;
 }
 
-/* Classe oculta */
+th {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Ocultar seção de opções da peça até que seja necessária */
 .hidden {
     display: none;
 }
 
-/* Ajuste da form-row para alinhar SS e ID lado a lado */
+/* Estilo para alinhar campos SS e ID lado a lado */
 .form-row {
     display: flex;
     justify-content: space-between;
