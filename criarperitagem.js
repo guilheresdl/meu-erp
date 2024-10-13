@@ -243,7 +243,7 @@ function enviarFormulario() {
     };
 
     // URL do Google Apps Script implantado
-    const urlScript = 'URL_DO_SEU_GOOGLE_APPS_SCRIPT'; // Cole o URL do seu Google Apps Script aqui
+    const urlScript = 'https://script.google.com/macros/s/AKfycbz9MNAe103IiWRCZ-VzGPhlPCDGWdMUMmY67cQiTEnJ8KIPKLoSCungiiKJRZdCR1thCg/exec'; // Cole o URL do seu Google Apps Script aqui
 
     // Fazendo a requisição POST para enviar os dados
     fetch(urlScript, {
