@@ -4,54 +4,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criar Peritagem</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="peritagem.css">
 </head>
 <body>
     <div class="container">
         <h1>Criar Peritagem</h1>
-        <form id="peritagemForm">
+        
+        <form id="peritagem-form">
+            <!-- Nome do Cliente -->
             <div class="form-group">
-                <label for="cliente">Nome do Cliente:</label>
-                <input type="text" id="cliente" name="cliente" required>
+                <label for="nomeCliente">Nome do Cliente:</label>
+                <input type="text" id="nomeCliente" name="nomeCliente" required>
             </div>
 
+            <!-- Nome do Equipamento -->
             <div class="form-group">
-                <label for="equipamento">Nome do Equipamento:</label>
-                <input type="text" id="equipamento" name="equipamento" required>
+                <label for="nomeEquipamento">Nome do Equipamento:</label>
+                <input type="text" id="nomeEquipamento" name="nomeEquipamento" required>
             </div>
 
-            <div class="form-group ss-id-group">
-                <div>
+            <!-- SS e ID lado a lado -->
+            <div class="form-row">
+                <div class="form-group">
                     <label for="ss">SS (Número de Série):</label>
                     <input type="text" id="ss" name="ss" required>
                 </div>
-                <div>
-                    <label for="id">ID:</label>
-                    <select id="id" name="id">
+
+                <div class="form-group">
+                    <label for="id">ID (Número de Identificação):</label>
+                    <select id="id" name="id" required>
+                        <option value="">Selecione...</option>
                         <!-- Opções de 1 a 50 -->
-                        <script>
-                            for (let i = 1; i <= 50; i++) {
-                                document.write(`<option value="${i}">${i}</option>`);
-                            }
-                        </script>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
+                        <option value="32">32</option>
+                        <option value="33">33</option>
+                        <option value="34">34</option>
+                        <option value="35">35</option>
+                        <option value="36">36</option>
+                        <option value="37">37</option>
+                        <option value="38">38</option>
+                        <option value="39">39</option>
+                        <option value="40">40</option>
+                        <option value="41">41</option>
+                        <option value="42">42</option>
+                        <option value="43">43</option>
+                        <option value="44">44</option>
+                        <option value="45">45</option>
+                        <option value="46">46</option>
+                        <option value="47">47</option>
+                        <option value="48">48</option>
+                        <option value="49">49</option>
+                        <option value="50">50</option>
                     </select>
                 </div>
             </div>
 
+            <!-- Nome do Responsável pela Peritagem -->
             <div class="form-group">
-                <label for="responsavel">Nome do Responsável pela Peritagem:</label>
-                <input type="text" id="responsavel" name="responsavel" required>
+                <label for="responsavelPeritagem">Nome do Responsável pela Peritagem:</label>
+                <input type="text" id="responsavelPeritagem" name="responsavelPeritagem" required>
             </div>
 
+            <!-- Data da Peritagem -->
             <div class="form-group">
-                <label for="data">Data da Peritagem:</label>
-                <input type="date" id="data" name="data" value="">
+                <label for="dataPeritagem">Data da Peritagem:</label>
+                <input type="date" id="dataPeritagem" name="dataPeritagem" required>
             </div>
 
+            <!-- Seletor de Peças -->
             <div class="form-group">
-                <label for="peca">Peças:</label>
-                <select id="peca" name="peca" onchange="mostrarOpcoesPeca()">
-                    <option value="" disabled selected>Selecione uma peça</option>
+                <label for="pecas">Peça:</label>
+                <select id="pecas" name="pecas" required>
+                    <option value="">Selecione uma peça</option>
                     <option value="Haste">Haste</option>
                     <option value="Camisa">Camisa</option>
                     <option value="Olhal">Olhal</option>
@@ -63,36 +117,35 @@
                 </select>
             </div>
 
-            <!-- Campos dinâmicos para as peças -->
-            <div id="opcoesPeca" class="hidden"></div>
-
-            <div class="form-group">
-                <label for="anexos">Anexar fotos:</label>
-                <input type="file" id="anexos" name="anexos" multiple>
+            <!-- Ações, Diâmetro, Comprimento e Largura -->
+            <div id="opcoesPeca" class="hidden">
+                <!-- Este conteúdo será preenchido dinamicamente com base na peça selecionada -->
             </div>
 
+            <!-- Botão Adicionar Peça -->
             <button type="button" onclick="adicionarPeca()">Adicionar Peça</button>
+
+            <!-- Tabela de Resumo das Peças -->
+            <table id="tabelaResumo">
+                <thead>
+                    <tr>
+                        <th>Peça</th>
+                        <th>Ação</th>
+                        <th>Diâmetro (mm)</th>
+                        <th>Comprimento (mm)</th>
+                        <th>Largura (mm)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Linhas serão adicionadas dinamicamente -->
+                </tbody>
+            </table>
+
+            <!-- Botão de Enviar -->
+            <button type="submit">Enviar</button>
         </form>
-
-        <h2>Resumo das Peças</h2>
-        <table id="resumoTabela">
-            <thead>
-                <tr>
-                    <th>Peça</th>
-                    <th>Ação</th>
-                    <th>Diâmetro (mm)</th>
-                    <th>Comprimento (mm)</th>
-                    <th>Largura (mm)</th>
-                    <th>Excluir</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-
-        <button type="button" onclick="resetarFormulario()">Enviar e Resetar</button>
-        <button type="button" onclick="gerarPDF()">Gerar PDF</button>
     </div>
 
-    <script src="script.js"></script>
+    <script src="peritagem.js"></script>
 </body>
 </html>
