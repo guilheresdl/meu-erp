@@ -82,104 +82,59 @@ function adicionarPeca() {
 
     // Criando a célula de excluir
     const acaoCell = novaLinha.insertCell(5);
-    const excluirBtn = document.createElement("span");
-    excluirBtn.textContent = "X";
-    excluirBtn.classList.add("excluir");
-    excluirBtn.onclick = function () {
-        tabela.deleteRow(novaLinha.rowIndex - 1);
-    };
-    acaoCell.appendChild(excluirBtn);
+    const botaoExcluir = document.createElement('button');
+    botaoExcluir.textContent = "Excluir";
+    botaoExcluir.onclick = () => tabela.deleteRow(novaLinha.rowIndex - 1);
+    acaoCell.appendChild(botaoExcluir);
 
-    // Limpa os campos após adicionar
+    // Limpa os campos após adicionar a peça
     document.getElementById("peca").value = "";
+    document.querySelector('.acoes-container').innerHTML = "";
     document.getElementById("diametro").value = "";
     document.getElementById("comprimento").value = "";
     document.getElementById("largura").value = "";
-    document.querySelector('.acoes-container').innerHTML = ""; // Limpa as opções
-    document.querySelector('.medidas-container').classList.add("hidden"); // Oculta o container de medidas
 }
 
-// Função para gerar o PDF
+// Função para gerar o PDF com os dados da peritagem
 async function gerarPDF() {
     const { jsPDF } = window.jspdf;
+    const { autoTable } = window.jspdf;
 
     const doc = new jsPDF();
     const cliente = document.getElementById("cliente").value;
     const equipamento = document.getElementById("equipamento").value;
-    const ss = document.getElementById("ss").value;
-    const id = document.getElementById("id").value;
+    const ss = document.getElementById("ss").value + document.getElementById("id").value;
     const responsavel = document.getElementById("responsavel").value;
     const data = document.getElementById("data").value;
 
-    // Título do PDF
-    doc.setFontSize(18);
-    doc.text(`Peritagem SS ${ss} - ${id}`, 10, 10);
-    doc.setFontSize(12);
-    doc.text(`Cliente: ${cliente}`, 10, 20);
-    doc.text(`Equipamento: ${equipamento}`, 10, 25);
-    doc.text(`Data: ${data}`, 10, 30);
-    
-    const tabela = document.getElementById("resumoTable").getElementsByTagName('tbody')[0];
-    const totalLinhas = tabela.rows.length;
+    doc.text(`Peritagem - ${data}`, 14, 20);
+    doc.text(`Cliente: ${cliente}`, 14, 30);
+    doc.text(`Equipamento: ${equipamento}`, 14, 40);
+    doc.text(`SS: ${ss}`, 14, 50);
+    doc.text(`Responsável: ${responsavel}`, 14, 60);
 
-    let y = 40; // Posição inicial para as peças
-
-    for (let i = 0; i < totalLinhas; i++) {
-        const linha = tabela.rows[i];
-        const peca = linha.cells[0].textContent;
-        const acoes = linha.cells[1].textContent;
-        const diametro = linha.cells[2].textContent;
-        const comprimento = linha.cells[3].textContent;
-        const largura = linha.cells[4].textContent;
-
-        // Adiciona as informações da peça no PDF
-        doc.setFontSize(12);
-        doc.text(`${peca} - Ações: ${acoes}`, 10, y);
-        y += 10; // Espaço entre o título da peça e suas medidas
-        doc.text(`Diâmetro: ${diametro} mm`, 10, y);
-        y += 5;
-        doc.text(`Comprimento: ${comprimento} mm`, 10, y);
-        y += 5;
-        doc.text(`Largura: ${largura} mm`, 10, y);
-        y += 15; // Espaço entre as peças
-    }
-
-    // Adiciona imagens se houver
-    const anexos = document.getElementById("anexos").files;
-    if (anexos.length > 0) {
-        const imagePromises = [];
-
-        for (let i = 0; i < anexos.length; i++) {
-            const file = anexos[i];
-            const reader = new FileReader();
-            imagePromises.push(new Promise((resolve) => {
-                reader.onload = (event) => {
-                    resolve(event.target.result);
-                };
-                reader.readAsDataURL(file);
-            }));
+    const tabela = document.getElementById("resumoTable");
+    const rows = [];
+    for (let i = 1; i < tabela.rows.length; i++) {
+        const row = tabela.rows[i].cells;
+        const rowData = [];
+        for (let j = 0; j < row.length; j++) {
+            rowData.push(row[j].textContent);
         }
-
-        const images = await Promise.all(imagePromises);
-        const espacoEntreImagens = 5; // Espaço entre as imagens
-        let yImagem = y + 10; // Ajusta a posição vertical para a primeira imagem
-        images.forEach((imgSrc) => {
-            doc.addImage(imgSrc, 'JPEG', 10, yImagem, 50, 50);
-            yImagem += 50 + espacoEntreImagens; // Atualiza a posição para a próxima imagem
-        });
-        yImagem += 10; // Espaço após as imagens
+        rows.push(rowData);
     }
 
-    // Informações finais
-    doc.text(`Responsável: ${responsavel}`, 10, yImagem);
-    doc.text(`Data: ${data}`, 10, yImagem + 5);
+    autoTable(doc, {
+        head: [['Peça', 'Ação', 'Diâmetro (mm)', 'Comprimento (mm)', 'Largura (mm)', 'Ação']],
+        body: rows,
+        startY: 70
+    });
 
-    // Salvar PDF
-    doc.save(`peritagem_ss_${ss}_${id}.pdf`);
+    // Gerar e salvar o PDF
+    doc.save(`peritagem_${cliente}.pdf`);
 }
 
-// Função para enviar o formulário
+// Função para enviar o formulário (adicionar lógica conforme necessário)
 function enviarFormulario() {
-    // Aqui você pode adicionar a lógica para enviar o formulário e os anexos
-    alert('Formulário enviado!');
+    alert('Formulário enviado!'); // Placeholder para lógica de envio
 }
