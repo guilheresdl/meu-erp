@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criar Peritagem</title>
-    <link rel="stylesheet" href="criarperitagem.css">
+    <link rel="stylesheet" href="estilo.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -44,14 +45,14 @@
             <label for="peca">Peças:</label>
             <select id="peca" onchange="exibirOpcoes()">
                 <option value="" disabled selected>Selecione uma peça</option>
-                <option value="Haste">Haste</option>
-                <option value="Camisa">Camisa</option>
-                <option value="Olhal">Olhal</option>
-                <option value="Flange">Flange</option>
-                <option value="Fundo">Fundo</option>
-                <option value="Embolo">Êmbolo</option>
-                <option value="Espacador">Espaçador</option>
-                <option value="Jogo de Vedacao">Jogo de Vedação</option>
+                <option value="haste">Haste</option>
+                <option value="camisa">Camisa</option>
+                <option value="olhal">Olhal</option>
+                <option value="flange">Flange</option>
+                <option value="fundo">Fundo</option>
+                <option value="embolo">Êmbolo</option>
+                <option value="espacador">Espaçador</option>
+                <option value="jogoVedacao">Jogo de Vedação</option>
             </select>
         </div>
         <div id="opcoesPeca" class="hidden">
@@ -92,8 +93,9 @@
         </div>
 
         <button onclick="enviarFormulario()">Enviar</button>
+        <button onclick="gerarPDF()">Gerar PDF</button>
     </div>
 
-    <script src="criarperitagem.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
