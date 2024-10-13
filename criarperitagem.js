@@ -11,21 +11,21 @@ function definirDataAtual() {
 // Chama a função para definir a data ao carregar a página
 window.onload = definirDataAtual;
 
+// Função para exibir opções de ações conforme a peça selecionada
 function exibirOpcoes() {
     const peca = document.getElementById("peca").value;
-    const opcoesContainer = document.getElementById("opcoesPeca");
     const acoesContainer = document.querySelector('.acoes-container');
     const medidasContainer = document.querySelector('.medidas-container');
     acoesContainer.innerHTML = ""; // Limpa as opções anteriores
     medidasContainer.classList.add("hidden"); // Oculta o container de medidas
 
     if (peca) {
-        opcoesContainer.classList.remove("hidden");
+        medidasContainer.classList.remove("hidden"); // Mostra o container de medidas
 
         let acoesDisponiveis = [];
         switch (peca) {
             case 'haste':
-                acoesDisponiveis = ['Fabricar', 'Cromar', 'Rec. Rosca'];
+                acoesDisponiveis = ['Fabricar', 'Cromar', 'Recuperar Olhar'];
                 break;
             case 'camisa':
                 acoesDisponiveis = ['Trocar', 'Limpar'];
@@ -58,6 +58,7 @@ function exibirOpcoes() {
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
             checkbox.id = acao;
+            checkbox.name = acao; // Adiciona um nome para o checkbox
 
             const label = document.createElement('label');
             label.setAttribute('for', acao);
@@ -67,16 +68,15 @@ function exibirOpcoes() {
             acaoDiv.appendChild(label);
             acoesContainer.appendChild(acaoDiv);
         });
-
-        medidasContainer.classList.remove("hidden"); // Mostra o container de medidas
     }
 }
 
+// Função para adicionar uma peça à tabela
 function adicionarPeca() {
     const peca = document.getElementById("peca").value;
     const acoes = Array.from(document.querySelectorAll('.acao-disponivel input:checked'))
-        .map(input => input.id)
-        .join(", ");
+        .map(input => input.name)
+        .join(", "); // Use o nome para manter a referência correta
     const diametro = document.getElementById("diametro").value;
     const comprimento = document.getElementById("comprimento").value;
     const largura = document.getElementById("largura").value;
@@ -107,9 +107,83 @@ function adicionarPeca() {
     document.getElementById("comprimento").value = "";
     document.getElementById("largura").value = "";
     document.querySelector('.acoes-container').innerHTML = ""; // Limpa as opções
-    document.querySelector('.medidas-container').classList.add("hidden"); // Oculta o container de medidas
+    medidasContainer.classList.add("hidden"); // Oculta o container de medidas
 }
 
+// Função para gerar o PDF
+async function gerarPDF() {
+    const { jsPDF } = window.jspdf;
+
+    const doc = new jsPDF();
+    const cliente = document.getElementById("cliente").value;
+    const equipamento = document.getElementById("equipamento").value;
+    const ss = document.getElementById("ss").value;
+    const id = document.getElementById("id").value;
+    const responsavel = document.getElementById("responsavel").value;
+    const data = document.getElementById("data").value;
+
+    // Título do PDF
+    doc.setFontSize(18);
+    doc.text(`Peritagem SS ${ss} - ${id}`, 10, 10);
+    doc.setFontSize(12);
+    doc.text(`Cliente: ${cliente}`, 10, 20);
+    doc.text(`Equipamento: ${equipamento}`, 10, 25);
+    doc.text(`Data: ${data}`, 10, 30);
+    doc.text(`Responsável: ${responsavel}`, 10, 35);
+    doc.text("Peças:", 10, 45);
+
+    const tabela = document.getElementById("resumoTable").getElementsByTagName('tbody')[0];
+    const totalLinhas = tabela.rows.length;
+
+    for (let i = 0; i < totalLinhas; i++) {
+        const linha = tabela.rows[i];
+        const peca = linha.cells[0].textContent;
+        const acoes = linha.cells[1].textContent;
+        const diametro = linha.cells[2].textContent;
+        const comprimento = linha.cells[3].textContent;
+        const largura = linha.cells[4].textContent;
+
+        // Adiciona as informações da peça no PDF
+        const y = 50 + (i * 10); // Define a posição vertical para cada linha
+        doc.text(`${peca} - ${acoes}`, 10, y);
+        doc.text(`Diâmetro: ${diametro} mm`, 10, y + 5);
+        doc.text(`Comprimento: ${comprimento} mm`, 10, y + 10);
+        doc.text(`Largura: ${largura} mm`, 10, y + 15);
+    }
+
+    // Adiciona imagens se houver
+    const anexos = document.getElementById("anexos").files;
+    if (anexos.length > 0) {
+        const imagePromises = [];
+
+        for (let i = 0; i < anexos.length; i++) {
+            const file = anexos[i];
+            const reader = new FileReader();
+            imagePromises.push(new Promise((resolve) => {
+                reader.onload = (event) => {
+                    resolve(event.target.result);
+                };
+                reader.readAsDataURL(file);
+            }));
+        }
+
+        const images = await Promise.all(imagePromises);
+        images.forEach((imgSrc, index) => {
+            const y = 50 + (totalLinhas * 10) + (index * 50); // Ajusta a posição vertical para as imagens
+            doc.addImage(imgSrc, 'JPEG', 10, y, 50, 50);
+        });
+    }
+
+    // Informações finais
+    const yFinal = 50 + (totalLinhas * 10) + (anexos.length * 50) + 60;
+    doc.text(`Responsável: ${responsavel}`, 10, yFinal);
+    doc.text(`Data: ${data}`, 10, yFinal + 5);
+
+    // Salvar PDF
+    doc.save(`peritagem_ss_${ss}_${id}.pdf`);
+}
+
+// Função para enviar o formulário
 function enviarFormulario() {
     // Aqui você pode adicionar a lógica para enviar o formulário e os anexos
     alert('Formulário enviado!');
