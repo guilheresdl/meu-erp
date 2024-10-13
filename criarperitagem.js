@@ -148,9 +148,20 @@ async function gerarPDF() {
     if (anexos.length > 0) {
         doc.text(`Anexos:`, 14, yPos);
         yPos += 10; // Adiciona espaço após o título de anexos
+
         for (let i = 0; i < anexos.length; i++) {
-            doc.text(`- ${anexos[i].name}`, 14, yPos);
-            yPos += 10; // Aumenta o espaço entre os anexos
+            const anexo = anexos[i];
+
+            // Verifica se o anexo é uma imagem
+            if (anexo.type.startsWith("image/")) {
+                const imgData = await readImageFile(anexo);
+                // Adiciona a imagem ao PDF
+                doc.addImage(imgData, 'JPEG', 14, yPos, 50, 50); // 50x50 é o tamanho da imagem, ajuste conforme necessário
+                yPos += 60; // Atualiza a posição vertical para a próxima imagem
+            } else {
+                doc.text(`- ${anexo.name}`, 14, yPos);
+                yPos += 10; // Aumenta o espaço entre os anexos
+            }
         }
         yPos += 10; // Espaço adicional após a lista de anexos
     }
@@ -162,6 +173,21 @@ async function gerarPDF() {
     // Gerar e salvar o PDF
     doc.save(`peritagem_ss_id.pdf`);
 }
+
+// Função para ler o arquivo de imagem e retornar os dados em Base64
+function readImageFile(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            resolve(event.target.result);
+        };
+        reader.onerror = function(error) {
+            reject(error);
+        };
+        reader.readAsDataURL(file);
+    });
+}
+
 
 
 
