@@ -43,43 +43,30 @@ function exibirOpcoes() {
                 acoesDisponiveis = ['Ajustar', 'Trocar'];
                 break;
             case 'embolo':
-                acoesDisponiveis = ['Lubrificar', 'Limpar'];
+                acoesDisponiveis = ['Recuperar', 'Trocar'];
                 break;
             case 'espacador':
-                acoesDisponiveis = ['Medir', 'Ajustar'];
+                acoesDisponiveis = ['Verificar', 'Trocar'];
                 break;
             case 'jogoVedacao':
-                acoesDisponiveis = ['Trocar', 'Verificar'];
+                acoesDisponiveis = ['Substituir', 'Ajustar'];
                 break;
         }
 
-        // Adiciona as ações disponíveis
         acoesDisponiveis.forEach(acao => {
-            const acaoDiv = document.createElement('div');
-            acaoDiv.classList.add('acao-disponivel');
-
-            const checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.id = acao;
-            checkbox.name = acao; // Adiciona um nome para o checkbox
-
-            const label = document.createElement('label');
-            label.setAttribute('for', acao);
-            label.textContent = acao;
-
-            acaoDiv.appendChild(checkbox);
-            acaoDiv.appendChild(label);
-            acoesContainer.appendChild(acaoDiv);
+            const div = document.createElement('div');
+            div.classList.add('acao-disponivel');
+            div.innerHTML = `<input type="checkbox"> ${acao}`;
+            acoesContainer.appendChild(div);
         });
     }
 }
 
-// Função para adicionar uma peça à tabela
+// Função para adicionar a peça à tabela
 function adicionarPeca() {
     const peca = document.getElementById("peca").value;
-    const acoes = Array.from(document.querySelectorAll('.acao-disponivel input:checked'))
-        .map(input => input.name)
-        .join(", "); // Use o nome para manter a referência correta
+    const acoes = Array.from(document.querySelectorAll('.acoes-container input[type="checkbox"]:checked'))
+        .map(cb => cb.nextSibling.textContent.trim()).join(", ");
     const diametro = document.getElementById("diametro").value;
     const comprimento = document.getElementById("comprimento").value;
     const largura = document.getElementById("largura").value;
@@ -87,20 +74,19 @@ function adicionarPeca() {
     const tabela = document.getElementById("resumoTable").getElementsByTagName('tbody')[0];
     const novaLinha = tabela.insertRow();
 
-    // Adiciona as células na nova linha
     novaLinha.insertCell(0).textContent = peca;
     novaLinha.insertCell(1).textContent = acoes;
     novaLinha.insertCell(2).textContent = diametro;
     novaLinha.insertCell(3).textContent = comprimento;
     novaLinha.insertCell(4).textContent = largura;
 
-    // Célula para excluir a linha
+    // Criando a célula de excluir
     const acaoCell = novaLinha.insertCell(5);
-    const excluirBtn = document.createElement('span');
-    excluirBtn.textContent = 'X';
-    excluirBtn.classList.add('excluir');
-    excluirBtn.onclick = function() {
-        tabela.deleteRow(novaLinha.rowIndex - 1); // -1 porque o índice da tabela começa em 0 e a primeira linha é o cabeçalho
+    const excluirBtn = document.createElement("span");
+    excluirBtn.textContent = "X";
+    excluirBtn.classList.add("excluir");
+    excluirBtn.onclick = function () {
+        tabela.deleteRow(novaLinha.rowIndex - 1);
     };
     acaoCell.appendChild(excluirBtn);
 
@@ -110,7 +96,7 @@ function adicionarPeca() {
     document.getElementById("comprimento").value = "";
     document.getElementById("largura").value = "";
     document.querySelector('.acoes-container').innerHTML = ""; // Limpa as opções
-    medidasContainer.classList.add("hidden"); // Oculta o container de medidas
+    document.querySelector('.medidas-container').classList.add("hidden"); // Oculta o container de medidas
 }
 
 // Função para gerar o PDF
@@ -136,7 +122,7 @@ async function gerarPDF() {
     const tabela = document.getElementById("resumoTable").getElementsByTagName('tbody')[0];
     const totalLinhas = tabela.rows.length;
 
-    doc.text("Peças:", 10, 45);
+    let y = 40; // Posição inicial para as peças
 
     for (let i = 0; i < totalLinhas; i++) {
         const linha = tabela.rows[i];
@@ -147,11 +133,15 @@ async function gerarPDF() {
         const largura = linha.cells[4].textContent;
 
         // Adiciona as informações da peça no PDF
-        const y = 50 + (i * 10); // Define a posição vertical para cada linha
-        doc.text(`${peca} - ${acoes}`, 10, y);
-        doc.text(`Diâmetro: ${diametro} mm`, 10, y + 5);
-        doc.text(`Comprimento: ${comprimento} mm`, 10, y + 10);
-        doc.text(`Largura: ${largura} mm`, 10, y + 15);
+        doc.setFontSize(12);
+        doc.text(`${peca} - Ações: ${acoes}`, 10, y);
+        y += 10; // Espaço entre o título da peça e suas medidas
+        doc.text(`Diâmetro: ${diametro} mm`, 10, y);
+        y += 5;
+        doc.text(`Comprimento: ${comprimento} mm`, 10, y);
+        y += 5;
+        doc.text(`Largura: ${largura} mm`, 10, y);
+        y += 15; // Espaço entre as peças
     }
 
     // Adiciona imagens se houver
@@ -172,17 +162,17 @@ async function gerarPDF() {
 
         const images = await Promise.all(imagePromises);
         const espacoEntreImagens = 5; // Espaço entre as imagens
-        let yImagem = 50 + (totalLinhas * 10) + 10; // Ajusta a posição vertical para a primeira imagem
-        images.forEach((imgSrc, index) => {
+        let yImagem = y + 10; // Ajusta a posição vertical para a primeira imagem
+        images.forEach((imgSrc) => {
             doc.addImage(imgSrc, 'JPEG', 10, yImagem, 50, 50);
             yImagem += 50 + espacoEntreImagens; // Atualiza a posição para a próxima imagem
         });
+        yImagem += 10; // Espaço após as imagens
     }
 
     // Informações finais
-    const yFinal = yImagem + 10; // Espaço entre imagens e informações finais
-    doc.text(`Responsável: ${responsavel}`, 10, yFinal);
-    doc.text(`Data: ${data}`, 10, yFinal + 5);
+    doc.text(`Responsável: ${responsavel}`, 10, yImagem);
+    doc.text(`Data: ${data}`, 10, yImagem + 5);
 
     // Salvar PDF
     doc.save(`peritagem_ss_${ss}_${id}.pdf`);
