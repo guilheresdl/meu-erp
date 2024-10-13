@@ -28,7 +28,7 @@ function exibirOpcoes() {
         let acoesDisponiveis = [];
         switch (peca) {
             case 'haste':
-                acoesDisponiveis = ['Fabricar', 'Cromar', 'Recuperar Olhar'];
+                acoesDisponiveis = ['Fabricar', 'Cromar', 'Recuperar Olhal'];
                 break;
             case 'camisa':
                 acoesDisponiveis = ['Trocar', 'Limpar'];
@@ -132,11 +132,11 @@ async function gerarPDF() {
     doc.text(`Cliente: ${cliente}`, 10, 20);
     doc.text(`Equipamento: ${equipamento}`, 10, 25);
     doc.text(`Data: ${data}`, 10, 30);
-    doc.text(`Responsável: ${responsavel}`, 10, 35);
-    doc.text("Peças:", 10, 45);
-
+    
     const tabela = document.getElementById("resumoTable").getElementsByTagName('tbody')[0];
     const totalLinhas = tabela.rows.length;
+
+    doc.text("Peças:", 10, 45);
 
     for (let i = 0; i < totalLinhas; i++) {
         const linha = tabela.rows[i];
@@ -171,14 +171,16 @@ async function gerarPDF() {
         }
 
         const images = await Promise.all(imagePromises);
+        const espacoEntreImagens = 5; // Espaço entre as imagens
+        let yImagem = 50 + (totalLinhas * 10) + 10; // Ajusta a posição vertical para a primeira imagem
         images.forEach((imgSrc, index) => {
-            const y = 50 + (totalLinhas * 10) + (index * 50); // Ajusta a posição vertical para as imagens
-            doc.addImage(imgSrc, 'JPEG', 10, y, 50, 50);
+            doc.addImage(imgSrc, 'JPEG', 10, yImagem, 50, 50);
+            yImagem += 50 + espacoEntreImagens; // Atualiza a posição para a próxima imagem
         });
     }
 
     // Informações finais
-    const yFinal = 50 + (totalLinhas * 10) + (anexos.length * 50) + 60;
+    const yFinal = yImagem + 10; // Espaço entre imagens e informações finais
     doc.text(`Responsável: ${responsavel}`, 10, yFinal);
     doc.text(`Data: ${data}`, 10, yFinal + 5);
 
