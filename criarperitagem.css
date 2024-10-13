@@ -5,58 +5,67 @@
     box-sizing: border-box;
 }
 
-/* Estilo do corpo */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #e6f7ff;
+    font-family: 'Calibri', sans-serif;
+    background-color: #f0f8ff;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
 
-/* Container principal */
 .container {
     width: 90%;
     max-width: 800px;
-    background-color: #fff;
+    background: #fff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    text-align: left; /* Mudei para alinhar o texto à esquerda */
 }
 
-/* Título */
 h1 {
     color: #007bff;
     margin-bottom: 20px;
+    text-align: center; /* Centraliza o título */
 }
 
-/* Estilo dos grupos de formulários */
 .form-group {
     margin-bottom: 15px;
     text-align: left;
 }
 
-/* Estilo dos rótulos */
 label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
 }
 
-/* Estilo dos campos de entrada e seleção */
-input[type="text"],
-input[type="number"],
-input[type="date"],
-select {
+/* Estilo para os campos de entrada e seleção */
+input, select {
     width: 100%;
     padding: 10px;
-    border: 1px solid #007bff;
+    border: 1px solid #ccc;
     border-radius: 4px;
 }
 
-/* Estilo do botão */
+/* Estilo da combinação SS e ID */
+.ss-id-group {
+    display: flex;
+    align-items: center; /* Alinha os itens no centro */
+}
+
+/* Ajuste para os campos SS e ID */
+#ss {
+    width: 80px; /* Largura fixa para SS */
+    margin-right: 0; /* Sem margem à direita para colar o próximo campo */
+}
+
+#id {
+    width: 80px; /* Largura fixa para ID */
+    margin-left: 0; /* Sem margem à esquerda para colar o campo anterior */
+}
+
 button {
     padding: 10px 20px;
     background-color: #007bff;
@@ -64,38 +73,46 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 10px;
+    margin: 10px 0; /* Margem superior e inferior */
 }
 
 button:hover {
     background-color: #0056b3;
 }
 
-/* Estilo da tabela */
 table {
     width: 100%;
     margin-top: 20px;
     border-collapse: collapse;
 }
 
-table,
-th,
-td {
+table, th, td {
     border: 1px solid #ccc;
 }
 
-th,
-td {
+th, td {
     padding: 10px;
     text-align: center;
 }
 
-/* Estilo das opções das ações das peças */
-#acoesDisponiveis label {
-    display: inline-block; /* Faz as checkboxes se alinharem lado a lado */
-    margin-right: 15px; /* Espaço entre as checkboxes */
-}
-
 .hidden {
     display: none;
+}
+
+/* Alinhamento das ações disponíveis */
+.acoes-container {
+    margin: 10px 0; /* Margem superior e inferior */
+}
+
+/* Cada ação com checkbox em linha */
+.acao-disponivel {
+    display: flex; /* Usar flexbox para cada ação */
+    align-items: center; /* Centraliza verticalmente */
+    margin: 5px 0; /* Espaçamento entre as ações */
+}
+
+/* Ajuste para a checkbox */
+.acao-disponivel input[type="checkbox"] {
+    margin-right: 5px; /* Espaçamento entre a checkbox e o texto */
+    width: auto; /* Largura automática para a checkbox */
 }
