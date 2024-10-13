@@ -45,6 +45,7 @@ h1 {
     justify-content: space-between;
     transition: transform 0.3s, box-shadow 0.3s;
     cursor: pointer;
+    text-decoration: none; /* Remove o sublinhado dos links */
 }
 
 .option-box h2 {
@@ -61,6 +62,10 @@ h1 {
 .option-box:hover {
     transform: translateY(-5px);
     box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.option-box:visited {
+    color: #007bff;
 }
 
 @media (max-width: 768px) {
