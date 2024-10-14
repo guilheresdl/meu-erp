@@ -208,7 +208,6 @@ async function salvarPaginaComoPDF() {
     });
 }
 
-// Função para enviar o formulário
 async function enviarFormulario() {
     const cliente = document.getElementById("cliente").value;
     const equipamento = document.getElementById("equipamento").value;
@@ -233,7 +232,7 @@ async function enviarFormulario() {
     const largura = document.getElementById("largura").value;
 
     // Substitua 'YOUR_SCRIPT_URL' pelo URL do seu Web App do Google Apps Script
-    const response = await fetch('https://script.google.com/macros/s/AKfycbzO2f40BwR4r3fePW9GClxWsIqSzDwGxzo5EUddpeyle0ew_y8ys5nnaP91PCJUu1OrJQ/exec', {
+    const response = await fetch('https://script.google.com/macros/s/AKfycbwztNBYFer6Ng884tKNv9vFK23oo0DPp3mIy7Q2wzGk2NkPEwFdCjM_uDEn82DVzfzjZQ/exec', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -256,4 +255,3 @@ async function enviarFormulario() {
     const result = await response.text();
     alert(result); // Exibe uma mensagem de sucesso ou erro
 }
-
