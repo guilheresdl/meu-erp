@@ -209,7 +209,29 @@ async function salvarPaginaComoPDF() {
 }
 
 async function enviarFormulario() {
-    // Aqui você pode exibir uma mensagem de sucesso sem enviar os dados
-    alert("Dados enviados com sucesso!");
+    const nome = "Guilherme"; // Nome a ser enviado
+    const url = "URL_DO_SEU_SCRIPT_AQUI"; // Cole aqui a URL do seu script Google Apps
+
+    const dados = new URLSearchParams();
+    dados.append('nome', nome);
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            body: dados,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        });
+
+        if (!response.ok) throw new Error('Erro ao enviar os dados.');
+
+        const resultado = await response.text();
+        alert("Dados enviados com sucesso: " + resultado);
+    } catch (error) {
+        console.error('Erro ao enviar os dados:', error);
+        alert('Erro ao enviar os dados');
+    }
 }
+
 
