@@ -243,7 +243,7 @@ async function enviarFormulario() {
     const responsavel = document.getElementById("responsavel").value;
     const data = document.getElementById("data").value;
 
-    const url = "https://script.google.com/macros/s/AKfycbw1tNZjLku_komqEL-mjp4olisoLJ83J04e-bvVoG3bFWArrwet5M7zNjV8sXJ_tH4l/exec"; // Substitua pela URL do seu script
+    const url = "https://script.google.com/macros/s/AKfycbws7btXM86GsmETuato2AqYcBYOZ1VkSl5OJFZ_Uyv-pfuAwH8diwLgUYqqjXFfrtupQA/exec"; // Substitua pela URL do seu script
 
     // Seleciona as peças adicionadas na tabela de resumo
     const tabela = document.getElementById("resumoTable").getElementsByTagName('tbody')[0];
