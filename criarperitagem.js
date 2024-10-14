@@ -231,27 +231,31 @@ async function enviarFormulario() {
     const comprimento = document.getElementById("comprimento").value;
     const largura = document.getElementById("largura").value;
 
-    // Substitua 'YOUR_SCRIPT_URL' pelo URL do seu Web App do Google Apps Script
-    const response = await fetch('https://script.google.com/macros/s/AKfycbwztNBYFer6Ng884tKNv9vFK23oo0DPp3mIy7Q2wzGk2NkPEwFdCjM_uDEn82DVzfzjZQ/exec', {
+    // Prepara os dados para envio
+    const dadosParaEnvio = {
+        cliente: cliente,
+        equipamento: equipamento,
+        ss: ss,
+        id: id,
+        responsavel: responsavel,
+        dataPeritagem: dataPeritagem,
+        pecas: pecas.join(", "), // Concatena as peças
+        acoes: acoes.join(", "), // Concatena as ações
+        diametro: diametro,
+        comprimento: comprimento,
+        largura: largura,
+    };
+
+    // Envia os dados para o Google Sheets
+    const url = 'https://script.google.com/macros/s/AKfycbzrfBxI5kawNT2n_K64y8hSZZHX2Q32MxPJFhrjY11uFbxhmL8lzjWxrbtIQnsXy0H3bQ/exec'; // Substitua pela URL do seu aplicativo da web
+    const response = await fetch(url, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            cliente: cliente,
-            equipamento: equipamento,
-            ss: ss,
-            id: id,
-            responsavel: responsavel,
-            dataPeritagem: dataPeritagem,
-            pecas: pecas.join(", "), // Concatena as peças
-            acoes: acoes.join(", "), // Concatena as ações
-            diametro: diametro,
-            comprimento: comprimento,
-            largura: largura,
-        }),
+        body: new URLSearchParams(dadosParaEnvio),
     });
 
-    const result = await response.text();
-    alert(result); // Exibe uma mensagem de sucesso ou erro
+    if (response.ok) {
+        alert("Dados enviados com sucesso!");
+    } else {
+        alert("Erro ao enviar os dados.");
+    }
 }
