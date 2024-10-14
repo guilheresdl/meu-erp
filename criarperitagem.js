@@ -208,6 +208,17 @@ async function salvarPaginaComoPDF() {
     });
 }
 
+function limparFormulario() {
+    document.getElementById("ss").value = "";
+    document.getElementById("id").value = "";
+    document.getElementById("cliente").value = "";
+    document.getElementById("equipamento").value = "";
+    document.getElementById("responsavel").value = "";
+    document.getElementById("data").value = "";
+    // Se houver outros campos, adicione a limpeza deles aqui
+}
+
+// Função para enviar o formulário para o Google Sheets
 async function enviarFormulario() {
     const ss = document.getElementById("ss").value;
     const id = document.getElementById("id").value;
@@ -216,7 +227,7 @@ async function enviarFormulario() {
     const responsavel = document.getElementById("responsavel").value;
     const data = document.getElementById("data").value;
 
-    const url = "https://script.google.com/macros/s/AKfycbwVwPRrYBVc7tO9Ssg74mPekGxS31EkPwLZLrEkIq_YX40UYGlv2sjP2vR86ctMpJ9MJw/exec"; // Substitua pela URL do seu script
+    const url = "https://script.google.com/macros/s/AKfycbw1tNZjLku_komqEL-mjp4olisoLJ83J04e-bvVoG3bFWArrwet5M7zNjV8sXJ_tH4l/exec"; // Substitua pela URL do seu script
 
     // Criar o payload a ser enviado
     const dados = new URLSearchParams();
@@ -241,9 +252,11 @@ async function enviarFormulario() {
 
         const resultado = await response.text();
         alert("Dados enviados com sucesso: " + resultado);
+
+        // Limpa o formulário após o envio
+        limparFormulario();
     } catch (error) {
         console.error('Erro ao enviar os dados:', error);
         alert('Erro ao enviar os dados');
     }
 }
-
