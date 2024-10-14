@@ -235,6 +235,7 @@ function definirDataAtual() {
 // Chama a função para definir a data ao carregar a página
 window.onload = definirDataAtual;
 
+// Função para enviar o formulário para o Google Sheets
 async function enviarFormulario() {
     const ss = document.getElementById("ss").value;
     const id = document.getElementById("id").value;
@@ -243,7 +244,7 @@ async function enviarFormulario() {
     const responsavel = document.getElementById("responsavel").value;
     const data = document.getElementById("data").value;
 
-    const url = "https://script.google.com/macros/s/AKfycbws7btXM86GsmETuato2AqYcBYOZ1VkSl5OJFZ_Uyv-pfuAwH8diwLgUYqqjXFfrtupQA/exec"; // Substitua pela URL do seu script
+    const url = "https://script.google.com/macros/s/AKfycbxNTpGBW5GIcRNJOvbMjvYo48Fhr4XJRqHp_Ut57piAro1dNwwt8VEWcITLQxHmOpjQDw/exec"; // Substitua pela URL do seu script
 
     // Seleciona as peças adicionadas na tabela de resumo
     const tabela = document.getElementById("resumoTable").getElementsByTagName('tbody')[0];
