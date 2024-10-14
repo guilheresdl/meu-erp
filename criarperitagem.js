@@ -222,6 +222,7 @@ function definirDataAtual() {
 window.onload = definirDataAtual;
 
 
+// Função para enviar o formulário para o Google Sheets
 async function enviarFormulario() {
     const ss = document.getElementById("ss").value;
     const id = document.getElementById("id").value;
@@ -230,34 +231,70 @@ async function enviarFormulario() {
     const responsavel = document.getElementById("responsavel").value;
     const data = document.getElementById("data").value;
 
-    const url = "https://script.google.com/macros/s/AKfycby8tX34AAFMuQAhhAC1hfVj0iZVbx97L1LaM_j_vGGJQrxfp6V0FF6_oV10v8Z9qpqOiA/exec"; // Substitua pela URL do seu script
+    const url = "https://script.google.com/macros/s/AKfycbx_7J4JAo3QgbfmsO-QYgmnf1kT70TtYS9rKEU2daVhCmQaH-w1NRwCX13D4oKl8Mp3kg/exec"; // Substitua pela URL do seu script
 
-    // Criar o payload a ser enviado
-    const dados = new URLSearchParams();
-    dados.append('ss', ss);
-    dados.append('id', id);
-    dados.append('cliente', cliente);
-    dados.append('equipamento', equipamento);
-    dados.append('responsavel', responsavel);
-    dados.append('data', data);
+    // Seleciona as peças adicionadas na tabela de resumo
+    const tabela = document.getElementById("resumoTable").getElementsByTagName('tbody')[0];
+    const numLinhas = tabela.rows.length;
 
-    // Envia os dados para o Google Sheets
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            body: dados,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        });
+    for (let i = 0; i < numLinhas; i++) {
+        const linha = tabela.rows[i];
+        const peca = linha.cells[0].textContent;
+        const acoes = linha.cells[1].textContent;
+        const diametro = linha.cells[2].textContent;
+        const comprimento = linha.cells[3].textContent;
+        const largura = linha.cells[4].textContent;
 
-        if (!response.ok) throw new Error('Erro ao enviar os dados.');
+        // Criar o payload a ser enviado para cada linha (peça)
+        const dados = new URLSearchParams();
+        dados.append('ss', ss);
+        dados.append('id', id);
+        dados.append('cliente', cliente);
+        dados.append('equipamento', equipamento);
+        dados.append('responsavel', responsavel);
+        dados.append('data', data);
+        dados.append('peca', peca);
+        dados.append('acoes', acoes);
+        dados.append('diametro', diametro);
+        dados.append('comprimento', comprimento);
+        dados.append('largura', largura);
 
-        const resultado = await response.text();
-        alert("Dados enviados com sucesso: " + resultado);
-    } catch (error) {
-        console.error('Erro ao enviar os dados:', error);
-        alert('Erro ao enviar os dados');
+        // Envia os dados para o Google Sheets
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                body: dados,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            });
+
+            if (!response.ok) throw new Error('Erro ao enviar os dados.');
+
+        } catch (error) {
+            console.error('Erro ao enviar os dados:', error);
+            alert('Erro ao enviar os dados');
+        }
     }
+
+    alert("Dados enviados com sucesso!");
+    
+    // Limpar o formulário e a tabela
+    limparFormulario();
 }
 
+// Função para limpar o formulário e a tabela
+function limparFormulario() {
+    document.getElementById("ss").value = "";
+    document.getElementById("id").value = "";
+    document.getElementById("cliente").value = "";
+    document.getElementById("equipamento").value = "";
+    document.getElementById("responsavel").value = "";
+    document.getElementById("data").value = "";
+    
+    // Limpar a tabela de resumo
+    const tabela = document.getElementById("resumoTable").getElementsByTagName('tbody')[0];
+    while (tabela.rows.length > 0) {
+        tabela.deleteRow(0);
+    }
+}
