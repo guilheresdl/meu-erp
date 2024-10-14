@@ -210,7 +210,7 @@ async function salvarPaginaComoPDF() {
 
 async function enviarFormulario() {
     const nome = "Guilherme"; // Nome a ser enviado
-    const url = "URL_DO_SEU_SCRIPT_AQUI"; // Cole aqui a URL do seu script Google Apps
+    const url = "https://script.google.com/macros/s/AKfycbw1tNZjLku_komqEL-mjp4olisoLJ83J04e-bvVoG3bFWArrwet5M7zNjV8sXJ_tH4l/exec"; // Cole aqui a URL do seu script Google Apps
 
     const dados = new URLSearchParams();
     dados.append('nome', nome);
