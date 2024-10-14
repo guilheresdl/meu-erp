@@ -1,53 +1,90 @@
-/* Estilo moderno com paleta de cores azul */
+/* Reset básico para evitar inconsistências entre navegadores */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
-  font-family: Calibri, sans-serif;
-  background-color: #f7f7f7;
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f8ff; /* Fundo azul claro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
 
-header {
-  background-color: #2196f3;
-  color: #fff;
-  padding: 20px;
-  text-align: center;
+.container {
+    text-align: center;
 }
 
-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
+h1 {
+    font-size: 2.5em;
+    color: #2196f3; /* Azul vibrante */
+    margin-bottom: 30px;
 }
 
-.linha {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+.options-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    flex-wrap: wrap; /* Para manter o layout responsivo */
 }
 
-.modulo {
-  width: 20%;
-  margin: 20px;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  color: #333;
-  text-align: center; /* Adicionado estilo de texto centralizado */
+.option-box {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 250px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    text-align: center; /* Alinha o texto ao centro */
 }
 
-.modulo:hover {
-  background-color: #eee; /* Estilo de hover */
-  cursor: pointer; /* Cursor de ponteiro */
+.option-box h2 {
+    font-size: 1.5em;
+    color: #2196f3; /* Azul vibrante */
+    margin-bottom: 10px;
 }
 
-.clicavel {
-  text-decoration: none; /* Remover sublinhado */
-  color: #333; /* Cor de texto escura */
+.option-box p {
+    font-size: 1em;
+    color: #333;
 }
 
-.clicavel:hover {
-  text-decoration: none; /* Remover sublinhado */
-  color: #333; /* Cor de texto escura */
+.option-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+    background-color: #eee; /* Estilo de hover */
+}
+
+a {
+    text-decoration: none;
+    color: #333; /* Mantém a cor escura para links */
+}
+
+a:hover, a:focus {
+    text-decoration: none;
+    color: #333;
+}
+
+/* Ajustes para dispositivos móveis */
+@media (max-width: 768px) {
+    .options-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .option-box {
+        width: 90%;
+        margin-bottom: 20px;
+    }
 }
