@@ -221,19 +221,7 @@ function definirDataAtual() {
 // Chama a função para definir a data ao carregar a página
 window.onload = definirDataAtual;
 
-// Função para limpar o formulário
-function limparFormulario() {
-    document.getElementById("ss").value = "";
-    document.getElementById("id").value = "";
-    document.getElementById("cliente").value = "";
-    document.getElementById("equipamento").value = "";
-    document.getElementById("responsavel").value = "";
-    document.getElementById("data").value = "";
-    document.querySelector('#resumoTable tbody').innerHTML = ""; // Limpa a tabela de peças
-    // Se houver outros campos, adicione a limpeza deles aqui
-}
 
-// Função para enviar o formulário para o Google Sheets
 async function enviarFormulario() {
     const ss = document.getElementById("ss").value;
     const id = document.getElementById("id").value;
@@ -242,56 +230,34 @@ async function enviarFormulario() {
     const responsavel = document.getElementById("responsavel").value;
     const data = document.getElementById("data").value;
 
-    const url = "https://script.google.com/macros/s/AKfycbybXzbdXE3v5h3ceYN8vq_iyX4oApxsUBOtiOgOHy59k7Za6l-kKY9brgn69YDoDfB3OA/exec"; // Substitua pela URL do seu script
+    const url = "https://script.google.com/macros/s/AKfycby8tX34AAFMuQAhhAC1hfVj0iZVbx97L1LaM_j_vGGJQrxfp6V0FF6_oV10v8Z9qpqOiA/exec"; // Substitua pela URL do seu script
 
-    const tabela = document.getElementById("resumoTable").getElementsByTagName('tbody')[0];
-    const numLinhas = tabela.rows.length;
+    // Criar o payload a ser enviado
+    const dados = new URLSearchParams();
+    dados.append('ss', ss);
+    dados.append('id', id);
+    dados.append('cliente', cliente);
+    dados.append('equipamento', equipamento);
+    dados.append('responsavel', responsavel);
+    dados.append('data', data);
 
-    // Enviar uma linha por cada peça adicionada
-    for (let i = 0; i < numLinhas; i++) {
-        const linha = tabela.rows[i];
-        const peca = linha.cells[0].textContent;
-        const acoes = linha.cells[1].textContent;
-        const diametro = linha.cells[2].textContent;
-        const comprimento = linha.cells[3].textContent;
-        const largura = linha.cells[4].textContent;
+    // Envia os dados para o Google Sheets
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            body: dados,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        });
 
-        // Criar o payload a ser enviado
-        const dados = new URLSearchParams();
-        dados.append('ss', ss);
-        dados.append('id', id);
-        dados.append('cliente', cliente);
-        dados.append('equipamento', equipamento);
-        dados.append('responsavel', responsavel);
-        dados.append('data', data);
-        dados.append('peca', peca);
-        dados.append('acoes', acoes);
-        dados.append('diametro', diametro);
-        dados.append('comprimento', comprimento);
-        dados.append('largura', largura);
+        if (!response.ok) throw new Error('Erro ao enviar os dados.');
 
-        try {
-            const response = await fetch(url, {
-                method: 'POST',
-                body: dados,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            });
-
-            if (!response.ok) throw new Error('Erro ao enviar os dados.');
-
-            const resultado = await response.text();
-            console.log(`Dados da peça ${peca} enviados com sucesso: ` + resultado);
-        } catch (error) {
-            console.error('Erro ao enviar os dados:', error);
-            alert('Erro ao enviar os dados da peça ' + peca);
-        }
+        const resultado = await response.text();
+        alert("Dados enviados com sucesso: " + resultado);
+    } catch (error) {
+        console.error('Erro ao enviar os dados:', error);
+        alert('Erro ao enviar os dados');
     }
-
-    alert("Todos os dados enviados com sucesso!");
-
-    // Limpa o formulário após o envio
-    limparFormulario();
 }
 
