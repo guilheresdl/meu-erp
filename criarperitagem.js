@@ -222,7 +222,19 @@ function definirDataAtual() {
 window.onload = definirDataAtual;
 
 
-// Função para enviar o formulário para o Google Sheets
+// Função para definir a data atual no campo de data
+function definirDataAtual() {
+    const dataInput = document.getElementById("data");
+    const dataAtual = new Date();
+    const dia = String(dataAtual.getDate()).padStart(2, '0');
+    const mes = String(dataAtual.getMonth() + 1).padStart(2, '0'); // Janeiro é 0!
+    const ano = dataAtual.getFullYear();
+    dataInput.value = `${dia}/${mes}/${ano}`;
+}
+
+// Chama a função para definir a data ao carregar a página
+window.onload = definirDataAtual;
+
 async function enviarFormulario() {
     const ss = document.getElementById("ss").value;
     const id = document.getElementById("id").value;
@@ -231,11 +243,14 @@ async function enviarFormulario() {
     const responsavel = document.getElementById("responsavel").value;
     const data = document.getElementById("data").value;
 
-    const url = "https://script.google.com/macros/s/AKfycbx_7J4JAo3QgbfmsO-QYgmnf1kT70TtYS9rKEU2daVhCmQaH-w1NRwCX13D4oKl8Mp3kg/exec"; // Substitua pela URL do seu script
+    const url = "https://script.google.com/macros/s/AKfycbw1tNZjLku_komqEL-mjp4olisoLJ83J04e-bvVoG3bFWArrwet5M7zNjV8sXJ_tH4l/exec"; // Substitua pela URL do seu script
 
     // Seleciona as peças adicionadas na tabela de resumo
     const tabela = document.getElementById("resumoTable").getElementsByTagName('tbody')[0];
     const numLinhas = tabela.rows.length;
+
+    // Flag para verificar se os dados foram enviados com sucesso
+    let sucesso = true;
 
     for (let i = 0; i < numLinhas; i++) {
         const linha = tabela.rows[i];
@@ -273,12 +288,16 @@ async function enviarFormulario() {
 
         } catch (error) {
             console.error('Erro ao enviar os dados:', error);
-            alert('Erro ao enviar os dados');
+            sucesso = false; // Marca como falha ao enviar algum dos dados
         }
     }
 
-    alert("Dados enviados com sucesso!");
-    
+    if (sucesso) {
+        alert("Todos os dados enviados com sucesso!");
+    } else {
+        alert("Houve um erro ao enviar alguns dados.");
+    }
+
     // Limpar o formulário e a tabela
     limparFormulario();
 }
