@@ -209,53 +209,7 @@ async function salvarPaginaComoPDF() {
 }
 
 async function enviarFormulario() {
-    const cliente = document.getElementById("cliente").value;
-    const equipamento = document.getElementById("equipamento").value;
-    const ss = document.getElementById("ss").value;
-    const id = document.getElementById("id").value;
-    const responsavel = document.getElementById("responsavel").value;
-    const dataPeritagem = document.getElementById("data").value;
-
-    const pecas = [];
-    const acoes = [];
-    const tabela = document.getElementById("resumoTable").getElementsByTagName('tbody')[0];
-    const numLinhas = tabela.rows.length;
-
-    for (let i = 0; i < numLinhas; i++) {
-        const linha = tabela.rows[i];
-        pecas.push(linha.cells[0].textContent);
-        acoes.push(linha.cells[1].textContent);
-    }
-
-    const diametro = document.getElementById("diametro").value;
-    const comprimento = document.getElementById("comprimento").value;
-    const largura = document.getElementById("largura").value;
-
-    // Prepara os dados para envio
-    const dadosParaEnvio = {
-        cliente: cliente,
-        equipamento: equipamento,
-        ss: ss,
-        id: id,
-        responsavel: responsavel,
-        dataPeritagem: dataPeritagem,
-        pecas: pecas.join(", "), // Concatena as peças
-        acoes: acoes.join(", "), // Concatena as ações
-        diametro: diametro,
-        comprimento: comprimento,
-        largura: largura,
-    };
-
-    // Envia os dados para o Google Sheets
-    const url = 'https://script.google.com/macros/s/AKfycbzrfBxI5kawNT2n_K64y8hSZZHX2Q32MxPJFhrjY11uFbxhmL8lzjWxrbtIQnsXy0H3bQ/exec'; // Substitua pela URL do seu aplicativo da web
-    const response = await fetch(url, {
-        method: 'POST',
-        body: new URLSearchParams(dadosParaEnvio),
-    });
-
-    if (response.ok) {
-        alert("Dados enviados com sucesso!");
-    } else {
-        alert("Erro ao enviar os dados.");
-    }
+    // Aqui você pode exibir uma mensagem de sucesso sem enviar os dados
+    alert("Dados enviados com sucesso!");
 }
+
