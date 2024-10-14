@@ -209,12 +209,25 @@ async function salvarPaginaComoPDF() {
 }
 
 async function enviarFormulario() {
-    const nome = "Guilherme"; // Nome a ser enviado
-    const url = "https://script.google.com/macros/s/AKfycbw1tNZjLku_komqEL-mjp4olisoLJ83J04e-bvVoG3bFWArrwet5M7zNjV8sXJ_tH4l/exec"; // Cole aqui a URL do seu script Google Apps
+    const ss = document.getElementById("ss").value;
+    const id = document.getElementById("id").value;
+    const cliente = document.getElementById("cliente").value;
+    const equipamento = document.getElementById("equipamento").value;
+    const responsavel = document.getElementById("responsavel").value;
+    const data = document.getElementById("data").value;
 
+    const url = "https://script.google.com/macros/s/AKfycbwVwPRrYBVc7tO9Ssg74mPekGxS31EkPwLZLrEkIq_YX40UYGlv2sjP2vR86ctMpJ9MJw/exec"; // Substitua pela URL do seu script
+
+    // Criar o payload a ser enviado
     const dados = new URLSearchParams();
-    dados.append('nome', nome);
+    dados.append('ss', ss);
+    dados.append('id', id);
+    dados.append('cliente', cliente);
+    dados.append('equipamento', equipamento);
+    dados.append('responsavel', responsavel);
+    dados.append('data', data);
 
+    // Envia os dados para o Google Sheets
     try {
         const response = await fetch(url, {
             method: 'POST',
@@ -233,5 +246,4 @@ async function enviarFormulario() {
         alert('Erro ao enviar os dados');
     }
 }
-
 
