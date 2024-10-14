@@ -208,7 +208,52 @@ async function salvarPaginaComoPDF() {
     });
 }
 
-// Função para enviar o formulário (adicionar lógica conforme necessário)
-function enviarFormulario() {
-    alert('Formulário enviado!'); // Placeholder para lógica de envio
+// Função para enviar o formulário
+async function enviarFormulario() {
+    const cliente = document.getElementById("cliente").value;
+    const equipamento = document.getElementById("equipamento").value;
+    const ss = document.getElementById("ss").value;
+    const id = document.getElementById("id").value;
+    const responsavel = document.getElementById("responsavel").value;
+    const dataPeritagem = document.getElementById("data").value;
+
+    const pecas = [];
+    const acoes = [];
+    const tabela = document.getElementById("resumoTable").getElementsByTagName('tbody')[0];
+    const numLinhas = tabela.rows.length;
+
+    for (let i = 0; i < numLinhas; i++) {
+        const linha = tabela.rows[i];
+        pecas.push(linha.cells[0].textContent);
+        acoes.push(linha.cells[1].textContent);
+    }
+
+    const diametro = document.getElementById("diametro").value;
+    const comprimento = document.getElementById("comprimento").value;
+    const largura = document.getElementById("largura").value;
+
+    // Substitua 'YOUR_SCRIPT_URL' pelo URL do seu Web App do Google Apps Script
+    const response = await fetch('https://script.google.com/macros/s/AKfycbzO2f40BwR4r3fePW9GClxWsIqSzDwGxzo5EUddpeyle0ew_y8ys5nnaP91PCJUu1OrJQ/exec', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            cliente: cliente,
+            equipamento: equipamento,
+            ss: ss,
+            id: id,
+            responsavel: responsavel,
+            dataPeritagem: dataPeritagem,
+            pecas: pecas.join(", "), // Concatena as peças
+            acoes: acoes.join(", "), // Concatena as ações
+            diametro: diametro,
+            comprimento: comprimento,
+            largura: largura,
+        }),
+    });
+
+    const result = await response.text();
+    alert(result); // Exibe uma mensagem de sucesso ou erro
 }
+
