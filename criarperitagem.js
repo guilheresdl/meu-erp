@@ -257,7 +257,7 @@ async function enviarFormulario() {
     const responsavel = document.getElementById("responsavel").value;
     const data = document.getElementById("data").value;
 
-    const url = "https://script.google.com/macros/s/AKfycbw1tNZjLku_komqEL-mjp4olisoLJ83J04e-bvVoG3bFWArrwet5M7zNjV8sXJ_tH4l/exec"; // Substitua pela URL do seu script
+    const url = "https://script.google.com/macros/s/AKfycbwhurJ4MTBnu-EK6Ssm7J2ryoEBs9eb3l-XiVjd72AiuwNDnKwLaDKVMg8BsvQ_UdGRAw/exec"; // Substitua pela URL do seu script
 
     // Criar o payload a ser enviado
     const dados = new URLSearchParams();
